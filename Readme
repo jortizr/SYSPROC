@@ -1,0 +1,9 @@
+
+1. composer require symfony/maker-bundle --dev
+2. composer require orm-fixtures --dev
+3. composer require zenstruck/foundry --dev
+4. composer require symfony/twig-pack
+5. composer require symfony/webpack-encore-bundle 
+6. npm install bootstrap --save-dev
+7. composer require symfony/debug-pack 
+8. npm run dev

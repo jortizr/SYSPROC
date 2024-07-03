@@ -7,3 +7,5 @@
 6. npm install bootstrap --save-dev
 7. composer require symfony/debug-pack 
 8. npm run dev
+9. npm i bootstrap-icons --save-dev (opcional)
+10. composer require symfony/ux-icons

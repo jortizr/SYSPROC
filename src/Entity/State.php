@@ -16,10 +16,6 @@ class State
     #[ORM\Column(length: 30)]
     private ?string $name_state = null;
 
-    #[ORM\ManyToOne(inversedBy: 'Id_State')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Employee $Id_State = null;
-
     public function getId(): ?int
     {
         return $this->id;
@@ -37,15 +33,4 @@ class State
         return $this;
     }
 
-    public function getIdState(): ?Employee
-    {
-        return $this->Id_State;
-    }
-
-    public function setIdState(?Employee $Id_State): static
-    {
-        $this->Id_State = $Id_State;
-
-        return $this;
-    }
 }

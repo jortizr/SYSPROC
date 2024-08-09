@@ -29,9 +29,6 @@ class Schedule
     #[ORM\Column(type: Types::TIME_MUTABLE)]
     private ?\DateTimeInterface $time_2_end = null;
 
-    #[ORM\ManyToOne(inversedBy: 'Id_schedule')]
-    private ?Employee $Id_schedule = null;
-
     public function getId(): ?int
     {
         return $this->id;
@@ -93,18 +90,6 @@ class Schedule
     public function setTime2End(\DateTimeInterface $time_2_end): static
     {
         $this->time_2_end = $time_2_end;
-
-        return $this;
-    }
-
-    public function getIdSchedule(): ?Employee
-    {
-        return $this->Id_schedule;
-    }
-
-    public function setIdSchedule(?Employee $Id_schedule): static
-    {
-        $this->Id_schedule = $Id_schedule;
 
         return $this;
     }

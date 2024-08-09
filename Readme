@@ -10,3 +10,4 @@
 9. npm i bootstrap-icons --save-dev (opcional)
 10. composer require symfony/ux-icons
 composer require doctrine/doctrine-migrations-bundle
+composer require easycorp/easyadmin-bundle

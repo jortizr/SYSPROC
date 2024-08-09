@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ScheduleRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -28,6 +30,17 @@ class Schedule
 
     #[ORM\Column(type: Types::TIME_MUTABLE)]
     private ?\DateTimeInterface $time_2_end = null;
+
+    /**
+     * @var Collection<int, Employee>
+     */
+    #[ORM\OneToMany(targetEntity: Employee::class, mappedBy: 'Id_schedule', orphanRemoval: true)]
+    private Collection $employees;
+
+    public function __construct()
+    {
+        $this->employees = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -90,6 +103,36 @@ class Schedule
     public function setTime2End(\DateTimeInterface $time_2_end): static
     {
         $this->time_2_end = $time_2_end;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Employee>
+     */
+    public function getEmployees(): Collection
+    {
+        return $this->employees;
+    }
+
+    public function addEmployee(Employee $employee): static
+    {
+        if (!$this->employees->contains($employee)) {
+            $this->employees->add($employee);
+            $employee->setIdSchedule($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEmployee(Employee $employee): static
+    {
+        if ($this->employees->removeElement($employee)) {
+            // set the owning side to null (unless already changed)
+            if ($employee->getIdSchedule() === $this) {
+                $employee->setIdSchedule(null);
+            }
+        }
 
         return $this;
     }

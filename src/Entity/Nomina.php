@@ -25,6 +25,14 @@ class Nomina
     #[ORM\Column]
     private ?float $amount = null;
 
+    #[ORM\ManyToOne(inversedBy: 'id_hour')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?TypeHour $typeHour = null;
+
+    #[ORM\ManyToOne]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?employee $id_employee = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -62,6 +70,30 @@ class Nomina
     public function setAmount(float $amount): static
     {
         $this->amount = $amount;
+
+        return $this;
+    }
+
+    public function getTypeHour(): ?TypeHour
+    {
+        return $this->typeHour;
+    }
+
+    public function setTypeHour(?TypeHour $typeHour): static
+    {
+        $this->typeHour = $typeHour;
+
+        return $this;
+    }
+
+    public function getIdEmployee(): ?employee
+    {
+        return $this->id_employee;
+    }
+
+    public function setIdEmployee(?employee $id_employee): static
+    {
+        $this->id_employee = $id_employee;
 
         return $this;
     }

@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20240809202345 extends AbstractMigration
+final class Version20240809205840 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -20,12 +20,16 @@ final class Version20240809202345 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('DROP TABLE operador');
+        $this->addSql('ALTER TABLE nomina ADD type_hour_id INT NOT NULL');
+        $this->addSql('ALTER TABLE nomina ADD CONSTRAINT FK_D7DFE7839DB2140C FOREIGN KEY (type_hour_id) REFERENCES type_hour (id)');
+        $this->addSql('CREATE INDEX IDX_D7DFE7839DB2140C ON nomina (type_hour_id)');
     }
 
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->addSql('CREATE TABLE operador (id INT AUTO_INCREMENT NOT NULL, name VARCHAR(20) CHARACTER SET utf8mb4 NOT NULL COLLATE `utf8mb4_0900_ai_ci`, linea VARCHAR(10) CHARACTER SET utf8mb4 NOT NULL COLLATE `utf8mb4_0900_ai_ci`, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_0900_ai_ci` ENGINE = InnoDB COMMENT = \'\' ');
+        $this->addSql('ALTER TABLE nomina DROP FOREIGN KEY FK_D7DFE7839DB2140C');
+        $this->addSql('DROP INDEX IDX_D7DFE7839DB2140C ON nomina');
+        $this->addSql('ALTER TABLE nomina DROP type_hour_id');
     }
 }

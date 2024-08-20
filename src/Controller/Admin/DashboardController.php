@@ -24,7 +24,7 @@ class DashboardController extends AbstractDashboardController
         // Option 1. You can make your dashboard redirect to some common page of your backend
         $adminUrlGenerator = $this->container->get(AdminUrlGenerator::class);
         
-        return $this->redirect($adminUrlGenerator->setController(BiometricCrudController::class)->generateUrl());
+        return $this->redirect($adminUrlGenerator->setController(EmployeeCrudController::class)->generateUrl());
 
         // Option 2. You can make your dashboard redirect to different pages depending on the user
         //
@@ -41,12 +41,16 @@ class DashboardController extends AbstractDashboardController
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-            ->setTitle('SYSPROC');
+            ->setTitle('Sistema de gestion de procesos');
     }
 
     public function configureMenuItems(): iterable
     {
-        yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
-        // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);
+        // yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
+        yield MenuItem::linkToCrud('Empleados', 'fas fa-users', Employee::class);
+        yield MenuItem::linkToCrud('Cargos', 'fas fa-helmet-safety', JobTitle::class);
+        yield MenuItem::linkToCrud('Horarios', 'fa-solid fa-calendar-days', Schedule::class);
+        yield MenuItem::linkToCrud('Estados', 'fa-solid fa-bookmark', State::class);
+        yield MenuItem::linkToCrud('Tipo de horas', 'fas fa-clock', TypeHour::class);
     }
 }

@@ -31,7 +31,7 @@ class Nomina
 
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
-    private ?employee $id_employee = null;
+    private ?Employee $id_employee = null;
 
     public function getId(): ?int
     {

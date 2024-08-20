@@ -21,7 +21,7 @@ class TypeHour
     /**
      * @var Collection<int, nomina>
      */
-    #[ORM\OneToMany(targetEntity: nomina::class, mappedBy: 'typeHour', orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: Nomina::class, mappedBy: 'typeHour', orphanRemoval: true)]
     private Collection $id_hour;
 
     public function __construct()

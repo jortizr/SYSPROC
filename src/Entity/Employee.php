@@ -23,7 +23,7 @@ class Employee
 
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
-    private ?state $ID_State = null;
+    private ?State $ID_State = null;
 
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
@@ -31,7 +31,7 @@ class Employee
 
     #[ORM\ManyToOne(inversedBy: 'employees')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?schedule $Id_schedule = null;
+    private ?Schedule $Id_schedule = null;
 
     public function getId(): ?int
     {

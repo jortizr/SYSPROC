@@ -5,15 +5,17 @@ namespace App\Entity;
 use App\Repository\EmployeeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: EmployeeRepository::class)]
 class Employee
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+    // #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'string', unique: true, length: 7)]
+    #[Assert\Length(min: 6, max: 7)]
+    private ?string $id = null;
 
     #[ORM\Column(length: 90)]
     private ?string $name = null;
@@ -33,9 +35,15 @@ class Employee
     #[ORM\JoinColumn(nullable: false)]
     private ?Schedule $Id_schedule = null;
 
-    public function getId(): ?int
+    public function getId(): ?string
     {
         return $this->id;
+    }
+
+    public function setId(string $id): static
+    {
+        $this->name = $id;
+        return $this;
     }
 
     public function getName(): ?string
@@ -46,7 +54,6 @@ class Employee
     public function setName(string $name): static
     {
         $this->name = $name;
-
         return $this;
     }
 
@@ -58,7 +65,6 @@ class Employee
     public function setCc(int $cc): static
     {
         $this->cc = $cc;
-
         return $this;
     }
 

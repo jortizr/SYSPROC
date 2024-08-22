@@ -42,7 +42,7 @@ class Employee
 
     public function setId(string $id): static
     {
-        $this->name = $id;
+        $this->id = $id;
         return $this;
     }
 
@@ -102,6 +102,11 @@ class Employee
         $this->Id_schedule = $Id_schedule;
 
         return $this;
+    }
+
+    public function __tostring(): string
+    {
+        return (string) $this->getName();
     }
 
 }

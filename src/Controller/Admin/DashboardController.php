@@ -2,10 +2,9 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\Biometric;
 use App\Entity\Employee;
+use App\Entity\Nomina;
 use App\Entity\JobTitle;
-
 use App\Entity\Schedule;
 use App\Entity\State;
 use App\Entity\TypeHour;
@@ -47,10 +46,12 @@ class DashboardController extends AbstractDashboardController
     public function configureMenuItems(): iterable
     {
         // yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
+        yield MenuItem::section('Nomina - GH');
         yield MenuItem::linkToCrud('Empleados', 'fas fa-users', Employee::class);
         yield MenuItem::linkToCrud('Cargos', 'fas fa-helmet-safety', JobTitle::class);
         yield MenuItem::linkToCrud('Horarios', 'fa-solid fa-calendar-days', Schedule::class);
         yield MenuItem::linkToCrud('Estados', 'fa-solid fa-bookmark', State::class);
         yield MenuItem::linkToCrud('Tipo de horas', 'fas fa-clock', TypeHour::class);
+        yield MenuItem::linkToCrud('Nomina', 'fas fa-receipt', Nomina::class);
     }
 }

@@ -75,4 +75,9 @@ class TypeHour
 
         return $this;
     }
+
+    public function __tostring(): string
+    {
+        return (string) $this->getNameHrs();
+    }
 }

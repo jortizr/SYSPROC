@@ -21,6 +21,8 @@ class EmployeeCrudController extends AbstractCrudController
     public function configureCrud(Crud $crud): Crud
     {
         return $crud
+            ->setEntityLabelInSingular('Colaborador')
+            ->setEntityLabelInPlural('Colaboradores')
             ->setSearchFields(['id', 'name', 'cc'])
             ->setDefaultSort(['id' => 'DESC']);
     }

@@ -5,8 +5,8 @@ namespace App\Controller\Admin;
 use App\Entity\TypeHour;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 
 class TypeHourCrudController extends AbstractCrudController
 {
@@ -15,14 +15,20 @@ class TypeHourCrudController extends AbstractCrudController
         return TypeHour::class;
     }
 
-    /*
+    public function configureCrud(Crud $crud): Crud
+    {
+        return $crud
+            ->setEntityLabelInSingular('Tipo de hora laboral')
+            ->setEntityLabelInPlural('Tipos de horas laborales')
+            
+            ;
+    }
+
     public function configureFields(string $pageName): iterable
     {
         return [
-            IdField::new('id'),
-            TextField::new('title'),
-            TextEditorField::new('description'),
+            IdField::new('id')->onlyOnIndex(),
+            TextField::new('name_hrs', 'Nombre del tipo de hora'),
         ];
     }
-    */
 }

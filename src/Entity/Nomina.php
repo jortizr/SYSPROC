@@ -15,9 +15,6 @@ class Nomina
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $date = null;
-
     #[ORM\Column(type: Types::SMALLINT, length: 1)]
     #[Assert\Length(min: 1, max: 1)]
     private ?int $fortnight = null;
@@ -33,21 +30,15 @@ class Nomina
     #[ORM\JoinColumn(nullable: false)]
     private ?Employee $id_employee = null;
 
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    private ?\DateTimeInterface $Date_start = null;
+
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    private ?\DateTimeInterface $Date_end = null;
+
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getDate(): ?\DateTimeInterface
-    {
-        return $this->date;
-    }
-
-    public function setDate(\DateTimeInterface $date): static
-    {
-        $this->date = $date;
-
-        return $this;
     }
 
     public function getFortnight(): ?int
@@ -97,5 +88,30 @@ class Nomina
 
         return $this;
     }
+
+    public function getDateStart(): ?\DateTimeInterface
+    {
+        return $this->Date_start;
+    }
+
+    public function setDateStart(\DateTimeInterface $Date_start): static
+    {
+        $this->Date_start = $Date_start;
+
+        return $this;
+    }
+
+    public function getDateEnd(): ?\DateTimeInterface
+    {
+        return $this->Date_end;
+    }
+
+    public function setDateEnd(\DateTimeInterface $Date_end): static
+    {
+        $this->Date_end = $Date_end;
+
+        return $this;
+    }
+
 
 }

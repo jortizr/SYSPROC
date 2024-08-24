@@ -8,6 +8,7 @@ use App\Entity\JobTitle;
 use App\Entity\Schedule;
 use App\Entity\State;
 use App\Entity\TypeHour;
+use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
@@ -47,6 +48,7 @@ class DashboardController extends AbstractDashboardController
     {
         // yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
         yield MenuItem::section('Nomina - GH');
+        yield MenuItem::linkToCrud('Usuarios', 'fas fa-user', User::class);
         yield MenuItem::linkToCrud('Empleados', 'fas fa-users', Employee::class);
         yield MenuItem::linkToCrud('Cargos', 'fas fa-helmet-safety', JobTitle::class);
         yield MenuItem::linkToCrud('Horarios', 'fa-solid fa-calendar-days', Schedule::class);

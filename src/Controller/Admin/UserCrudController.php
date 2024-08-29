@@ -41,7 +41,12 @@ class UserCrudController extends AbstractCrudController
             IdField::new ('id')->onlyOnIndex(),
             TextField::new ('fullname', 'Nombre completo'),
             TextField::new ('username', 'Usuario'),
-            TextField::new ('password', 'Contraseña'),
+            TextField::new ('password', 'Contraseña')
+                //funcion para ocultar el hash de la contraseña
+                ->formatValue(static function ($value, $entity) {
+                    return '********'; 
+                }),
+            
 
             ChoiceField::new ('roles')->setChoices([
                 'Administrador' => 'ROLE_ADMIN',

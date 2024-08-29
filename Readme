@@ -11,3 +11,4 @@
 10. composer require symfony/ux-icons
 composer require doctrine/doctrine-migrations-bundle
 composer require easycorp/easyadmin-bundle
+composer require symfony/security-core

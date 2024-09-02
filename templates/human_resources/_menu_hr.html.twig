@@ -7,13 +7,16 @@
 
 			<ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
 				<li>
-					<a href="/" class="btn px-2 btn-dark">Home</a>
+					<a href="{{path('app_biometrico')}}" class="btn px-2 btn-dark">Biometrico</a>
 				</li>
 				<li>
-					<a href="/HR" class="btn px-2 btn-dark">Gestion Humana</a>
+					<a href="/HR" class="btn px-2 btn-dark">Horarios</a>
 				</li>
 				<li>
-					<a href="#" class="btn px-2 btn-dark">Tecnologia</a>
+					<a href="#" class="btn px-2 btn-dark">Colaboradores</a>
+				</li>
+                <li>
+					<a href="#" class="btn px-2 btn-dark">Nomina</a>
 				</li>
 				<li>
 					<a href="#" class="btn px-2 btn-dark">Certificados</a>
@@ -24,10 +27,6 @@
 			          <input type="search" class="form-control form-control-dark text-bg-dark" placeholder="Search..." aria-label="Search">
 			        </form> #}
 
-			<div class="text-end">
-				<a href="{{ path('app_login')}}" class="btn btn-outline-light me-2">Inicio sesion</a>
-				<a href="{{ path('app_register')}}" class="btn btn-warning">Crear cuenta</a>
-			</div>
 		</div>
 	</div>
 </header>

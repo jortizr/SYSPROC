@@ -1,16 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HumanResourcesController!{% endblock %}
+{% block title %}Gestion Humana{% endblock %}
+{% block stylesheets %}
+	{{ encore_entry_link_tags('app') }}
+{% endblock %}
 
+{% block javascripts %}
+	{{ encore_entry_script_tags('app') }}
+	{% endblock %}
 {% block body %}
     {{ include('human_resources/_menu_hr.html.twig') }}
 
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello bienvenidos al area de Gestion Humana! ✅</h1>
-</div>
 {% endblock %}

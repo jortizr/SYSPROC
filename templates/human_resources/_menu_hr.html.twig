@@ -1,32 +1,123 @@
-<header class="p-1 text-bg-dark">
-	<div class="container">
-		<div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-			<a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-<img src="images/logo.svg" alt="" width="56" height="50">
-			</a>
+<header>
+	<div class="container-fluid bg-green">
+		<div class="row flex-nowrap">
+			<div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
+				<div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
+					<a href="" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+						<span class="fs-5 d-none d-sm-inline">Menu</span>
+					</a>
+					<ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
+						<li class="nav-item ">
+							<a href="#" class="nav-link align-middle px-0 btn px-2 btn-dark text-light">
+								<i class="bi-house-door-fill"></i>
+								<span class="ms-1 d-none d-sm-inline">Home</span>
+							</a>
+						</li>
+						<li>
+							<a href="#" class="nav-link px-0 align-middle btn px-2 btn-dark text-light">
+								<i class="bi-fingerprint"></i>
+								<span class="ms-1 d-none d-sm-inline">Biometrico</span>
+							</a>
+						</li>
+						<li>
+							<a href="#" class="nav-link px-0 align-middle btn px-2 btn-dark text-light">
+								<i class="bi-calendar-week"></i>
+								<span class="ms-1 d-none d-sm-inline">Horarios</span>
+							</a>
+						</li>
+						<li>
+							<a href="#" class="nav-link px-0 align-middle btn px-2 btn-dark text-light">
+								<i class="bi-people"></i>
+								<span class="ms-1 d-none d-sm-inline">Colaboradores</span>
+							</a>
+						</li>
+						<li>
+							<a href="#" class="nav-link px-0 align-middle btn px-2 btn-dark text-light">
+								<i class="bi-receipt"></i>
+								<span class="ms-1 d-none d-sm-inline">Nomina</span>
+							</a>
+						</li>
+						<li>
+							<a href="#" class="nav-link px-0 align-middle btn px-2 btn-dark text-light">
+								<i class="bi-file-earmark-pdf"></i>
+								<span class="ms-1 d-none d-sm-inline">Certificaciones</span>
+							</a>
+						</li>
+					</ul>
+					<hr>
+					<div class="dropdown pb-4">
+						<a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+							<img src="https://github.com/mdo.png" alt="hugenerd" width="30" height="30" class="rounded-circle">
+							<span class="d-none d-sm-inline mx-1">usuario</span>
+						</a>
+						<ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
+							<li>
+								<a class="dropdown-item" href="#">
+									<i class="bi-plus-circle"></i>
+									New project...</a>
+							</li>
+							<li>
+								<a class="dropdown-item" href="#">
+									<i class="bi-gear-fill"></i>
+									Settings</a>
+							</li>
+							<li>
+								<a class="dropdown-item" href="#">
+									<i class="bi-person-circle"></i>
+									Profile</a>
+							</li>
+							<li><hr class="dropdown-divider"></li>
+							<li>
+								<a class="dropdown-item" href="#">
+									<i class="bi-box-arrow-right"></i>
+									Sign out</a>
+							</li>
+						</ul>
+					</div>
 
-			<ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-				<li>
-					<a href="{{path('app_biometrico')}}" class="btn px-2 btn-dark">Biometrico</a>
-				</li>
-				<li>
-					<a href="/HR" class="btn px-2 btn-dark">Horarios</a>
-				</li>
-				<li>
-					<a href="#" class="btn px-2 btn-dark">Colaboradores</a>
-				</li>
-                <li>
-					<a href="#" class="btn px-2 btn-dark">Nomina</a>
-				</li>
-				<li>
-					<a href="#" class="btn px-2 btn-dark">Certificados</a>
-				</li>
-			</ul>
-
-			{# <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
-			          <input type="search" class="form-control form-control-dark text-bg-dark" placeholder="Search..." aria-label="Search">
-			        </form> #}
-
+				</div>
+			</div>
+			<div class="col py-3">
+				<h3>Left Sidebar with Submenus</h3>
+				<p class="lead">
+					An example 2-level sidebar with collapsible menu items. The menu functions like an "accordion" where only a single 
+					                menu is open at a time. While the sidebar itself is not toggle-able, it does responsively shrink in width on smaller screens.
+				</p>
+				<ul class="list-unstyled">
+					<li>
+						<h5>Responsive</h5>
+						shrinks in width, hides text labels and collapses to icons only on mobile</li>
+				</ul>
+			</div>
 		</div>
 	</div>
+
+
+	{# <div class="container">
+			<div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+				<a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+	<img src="images/logo.svg" alt="" width="56" height="50">
+				</a>
+	
+				<ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+					<li>
+						<a href="{{path('app_biometrico')}}" class="btn px-2 btn-dark">Biometrico</a>
+					</li>
+					<li>
+						<a href="/HR" class="btn px-2 btn-dark">Horarios</a>
+					</li>
+					<li>
+						<a href="#" class="btn px-2 btn-dark">Colaboradores</a>
+					</li>
+	                <li>
+						<a href="#" class="btn px-2 btn-dark">Nomina</a>
+					</li>
+					<li>
+						<a href="#" class="btn px-2 btn-dark">Certificados</a>
+					</li>
+				</ul>
+	
+				{# <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
+				          <input type="search" class="form-control form-control-dark text-bg-dark" placeholder="Search..." aria-label="Search">
+				        </form> #}
 </header>

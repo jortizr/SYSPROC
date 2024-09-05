@@ -1,14 +1,25 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Gestion Humana{% endblock %}
+{% block title %}Gestion Humana
+{% endblock %}
 {% block stylesheets %}
 	{{ encore_entry_link_tags('app') }}
 {% endblock %}
 
 {% block javascripts %}
 	{{ encore_entry_script_tags('app') }}
-	{% endblock %}
+{% endblock %}
 {% block body %}
-    {{ include('human_resources/_menu_hr.html.twig') }}
+	<div class="container-fluid bg-green">
+		<div class="row flex-nowrap">
+			{{ include('human_resources/_menu_hr.html.twig') }}
 
+			<div class="col py-3">
+			 	{# Aquí se renderizará el contenido dinámico #}
+				{% block content %}
+
+				{% endblock %}
+			</div>
+		</div>
+	</div>
 {% endblock %}

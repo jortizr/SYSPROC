@@ -1,46 +1,46 @@
-{# templates/gestion_humana/index.html.twig #}
+{# templates/human_resources/biometrico.html.twig #}
+{% extends 'human_resources/human_resource.html.twig' %}
 
-{% extends 'base.html.twig' %}
+{% block content %}
+    <h1>CARGA DE REGISTROS</h1>
+    <!-- 
+	<h1>Cargar Archivo Excel</h1>
 
-{% block title %}Registros Biometricos{% endblock %}
+	{# Formulario para cargar el archivo Excel #}
+	{# <form action="{{ path('app_biometrico') }}" method="post" enctype="multipart/form-data"> #}
+		<div class="mb-3">
+			<label for="excel_file" class="form-label">Seleccione un archivo Excel:</label>
+			<input type="file" name="excel_file" id="excel_file" class="form-control" required>
+		</div>
+		<button type="submit" class="btn btn-primary">Cargar</button>
+	</form>
 
-{% block body %}
-    <h1>Cargar Archivo Excel</h1>
+	{# Previsualización de los datos, si están presentes #}
+	{# {% if sheetData is defined %} #}
+		<h2 class="mt-5">Previsualización de Datos</h2>
+		<table class="table table-striped mt-3">
+			<thead>
+				<tr>
+					{# {% for header in sheetData[0] %}
+						<th>{{ header }}</th>
+					{% endfor %} #}
+				</tr>
+			</thead>
+			<tbody>
+				{# {% for row in sheetData %}
+					<tr>
+						{% for cell in row %}
+							<td>{{ cell }}</td>
+						{% endfor %}
+					</tr>
+				{% endfor %} #}
+			</tbody>
+		</table>
 
-    {# Formulario para cargar el archivo Excel #}
-    <form action="{{ path('app_biometrico') }}" method="post" enctype="multipart/form-data">
-        <div class="mb-3">
-            <label for="excel_file" class="form-label">Seleccione un archivo Excel:</label>
-            <input type="file" name="excel_file" id="excel_file" class="form-control" required>
-        </div>
-        <button type="submit" class="btn btn-primary">Cargar</button>
-    </form>
-
-    {# Previsualización de los datos, si están presentes #}
-    {% if sheetData is defined %}
-        <h2 class="mt-5">Previsualización de Datos</h2>
-        <table class="table table-striped mt-3">
-            <thead>
-                <tr>
-                    {% for header in sheetData[0] %}
-                        <th>{{ header }}</th>
-                    {% endfor %}
-                </tr>
-            </thead>
-            <tbody>
-                {% for row in sheetData %}
-                    <tr>
-                        {% for cell in row %}
-                            <td>{{ cell }}</td>
-                        {% endfor %}
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-
-        {# Botón para guardar los datos en la base de datos #}
-        <form action="{{ path('guardar_datos') }}" method="post">
-            <button type="submit" class="btn btn-success">Guardar en Base de Datos</button>
-        </form>
-    {% endif %}
+		{# Botón para guardar los datos en la base de datos #}
+		{# <form action="{{ path('guardar_datos') }}" method="post"> #}
+			<button type="submit" class="btn btn-success">Guardar en Base de Datos</button>
+		</form>
+	{# {% endif %} #} #}
+    -->
 {% endblock %}

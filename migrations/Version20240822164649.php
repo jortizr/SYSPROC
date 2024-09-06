@@ -20,7 +20,7 @@ final class Version20240822164649 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('CREATE TABLE biometric (id INT AUTO_INCREMENT NOT NULL, company VARCHAR(20) NOT NULL, name VARCHAR(50) DEFAULT NULL, cod_nomina VARCHAR(10) NOT NULL, date DATETIME NOT NULL, in_hour TIME DEFAULT NULL, out_hour TIME DEFAULT NULL, cc INT DEFAULT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4');
+        $this->addSql('CREATE TABLE biometric (id INT AUTO_INCREMENT NOT NULL, company VARCHAR(20) NOT NULL, name VARCHAR(50) DEFAULT NULL, cod_nomina VARCHAR(10) NOT NULL, cc INT DEFAULT NULL, date DATETIME NOT NULL, in_hour TIME DEFAULT NULL, out_hour TIME DEFAULT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4');
         $this->addSql('CREATE TABLE employee (id VARCHAR(7) NOT NULL, name VARCHAR(90) NOT NULL, cc INT NOT NULL, id_state_id INT NOT NULL, cod_job_title_id INT NOT NULL, id_schedule_id INT NOT NULL, INDEX IDX_5D9F75A15503D054 (id_state_id), INDEX IDX_5D9F75A14702F281 (cod_job_title_id), INDEX IDX_5D9F75A1BC190F22 (id_schedule_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4');
         $this->addSql('CREATE TABLE job_title (id INT AUTO_INCREMENT NOT NULL, name VARCHAR(45) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4');
         $this->addSql('CREATE TABLE nomina (id INT AUTO_INCREMENT NOT NULL, date DATE NOT NULL, fortnight SMALLINT NOT NULL, amount DOUBLE PRECISION NOT NULL, type_hour_id INT NOT NULL, id_employee_id VARCHAR(7) NOT NULL, INDEX IDX_D7DFE7839DB2140C (type_hour_id), INDEX IDX_D7DFE78394113CAB (id_employee_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4');

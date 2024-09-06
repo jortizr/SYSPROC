@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Biometric;
 use App\Entity\Employee;
 use App\Entity\Nomina;
 use App\Entity\JobTitle;
@@ -48,6 +49,7 @@ class DashboardController extends AbstractDashboardController
     {
         // yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
         yield MenuItem::section('Nomina - GH');
+        yield MenuItem::linkToCrud('Biometrico', 'fas fa-user', Biometric::class);
         yield MenuItem::linkToCrud('Usuarios', 'fas fa-user', User::class);
         yield MenuItem::linkToCrud('Empleados', 'fas fa-users', Employee::class);
         yield MenuItem::linkToCrud('Cargos', 'fas fa-helmet-safety', JobTitle::class);

@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Controller;
-
+use App\Service\ExcelDataProcessor;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -10,6 +10,14 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class HumanResourcesController extends AbstractController
 {
+    private $excelProcessor;
+
+    public function __construct(ExcelDataProcessor $excelProcessor)
+    {
+        $this->excelProcessor = $excelProcessor;
+    }
+
+
     #[Route('/HR', name: 'app_human_resources')]
     public function index(): Response
     {
@@ -17,17 +25,22 @@ class HumanResourcesController extends AbstractController
     }
 
     #[Route('/HR/biometric', name: 'app_biometric')]
-    public function getBiometric(): Response
+    public function getBiometric(Request $request): Response
     {
-        // $file = $request->files->get('excel_file');
-        // if($file){
-        //     $spreadsheet = IOFactory::load($file->getPathname());
-        //     $sheetData = $spreadsheet->getActiveSheet()->toArray(null, true, true, true);
+        $file = $request->files->get('excel_file');
+        if($file){
+            $spreadsheet = IOFactory::load($file->getPathname());
+            $sheetData = $spreadsheet->getActiveSheet()->toArray(null, true, true, true);
+            // $header = array_shift($sheetData);
+            // Procesa los datos usando la clase separada
+            $organizedData = $this->excelProcessor->processData($sheetData);
 
-        //     return $this->render('human_resources/_registros.html.twig', [
-        //         'sheetData' => $sheetData
-        //     ]);
-        // }
+            dd($organizedData);
+            return $this->render('human_resources/_registers.html.twig', [
+                'sheetData' => $organizedData,
+                // 'header' => $header
+            ]);
+        }
         return $this->render('human_resources/_registers.html.twig');
     }
 

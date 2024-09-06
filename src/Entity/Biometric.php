@@ -22,8 +22,11 @@ class Biometric
 
     #[ORM\Column(length: 10)]
     private ?string $cod_nomina = null;
+    
+    #[ORM\Column(nullable: true)]
+    private ?int $cc = null;
 
-    #[ORM\Column]
+    #[ORM\Column(type: Types::DATE_IMMUTABLE)]
     private ?\DateTimeImmutable $date = null;
 
     #[ORM\Column(type: Types::TIME_IMMUTABLE, nullable: true)]
@@ -32,8 +35,18 @@ class Biometric
     #[ORM\Column(type: Types::TIME_IMMUTABLE, nullable: true)]
     private ?\DateTimeImmutable $out_hour = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?int $cc = null;
+
+    #[ORM\Column(type: Types::TIME_IMMUTABLE, nullable: true)]
+    private ?\DateTimeImmutable $in_hour_2 = null;
+
+    #[ORM\Column(type: Types::TIME_IMMUTABLE, nullable: true)]
+    private ?\DateTimeImmutable $out_hour_2 = null;
+
+    #[ORM\Column(type: Types::TIME_IMMUTABLE, nullable: true)]
+    private ?\DateTimeImmutable $in_hour_3 = null;
+
+    #[ORM\Column(type: Types::TIME_IMMUTABLE, nullable: true)]
+    private ?\DateTimeImmutable $out_hour_3 = null;
 
     public function getId(): ?int
     {
@@ -100,6 +113,18 @@ class Biometric
         return $this;
     }
 
+    public function getCc(): ?int
+    {
+        return $this->cc;
+    }
+
+    public function setCc(?int $cc): static
+    {
+        $this->cc = $cc;
+
+        return $this;
+    }
+
     public function getOutHour(): ?\DateTimeImmutable
     {
         return $this->out_hour;
@@ -112,14 +137,50 @@ class Biometric
         return $this;
     }
 
-    public function getCc(): ?int
+    public function getInHour2(): ?\DateTimeImmutable
     {
-        return $this->cc;
+        return $this->in_hour_2;
     }
 
-    public function setCc(?int $cc): static
+    public function setInHour2(?\DateTimeImmutable $in_hour_2): static
     {
-        $this->cc = $cc;
+        $this->in_hour_2 = $in_hour_2;
+
+        return $this;
+    }
+
+    public function getOutHour2(): ?\DateTimeImmutable
+    {
+        return $this->out_hour_2;
+    }
+
+    public function setOutHour2(?\DateTimeImmutable $out_hour_2): static
+    {
+        $this->out_hour_2 = $out_hour_2;
+
+        return $this;
+    }
+
+    public function getInHour3(): ?\DateTimeImmutable
+    {
+        return $this->in_hour_3;
+    }
+
+    public function setInHour3(?\DateTimeImmutable $in_hour_3): static
+    {
+        $this->in_hour_3 = $in_hour_3;
+
+        return $this;
+    }
+
+    public function getOutHour3(): ?\DateTimeImmutable
+    {
+        return $this->out_hour_3;
+    }
+
+    public function setOutHour3(?\DateTimeImmutable $out_hour_3): static
+    {
+        $this->out_hour_3 = $out_hour_3;
 
         return $this;
     }

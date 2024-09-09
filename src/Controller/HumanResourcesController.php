@@ -31,14 +31,27 @@ class HumanResourcesController extends AbstractController
         if($file){
             $spreadsheet = IOFactory::load($file->getPathname());
             $sheetData = $spreadsheet->getActiveSheet()->toArray(null, true, true, true);
-            // $header = array_shift($sheetData);
+            $header =[
+                'A' => 'Departamento',
+                'B' => 'Colaborador',
+                'C' => 'Cod. Nomina',
+                'D' => 'Cedula',
+                'E' => 'Fecha registro',
+                'F' => 'Hora entrada',
+                'G' => 'Hora salida',
+                'H' => 'Hora entrada 2',
+                'I' => 'Hora salida 2',
+                'J' => 'Hora entrada 3',
+                'K' => 'Hora salida 3',
+                'L' => 'Dia',
+                'M' => 'Dia Festivo',
+            ];
             // Procesa los datos usando la clase separada
             $organizedData = $this->excelProcessor->processData($sheetData);
 
-            dd($organizedData);
             return $this->render('human_resources/_registers.html.twig', [
                 'sheetData' => $organizedData,
-                // 'header' => $header
+                'header' => $header
             ]);
         }
         return $this->render('human_resources/_registers.html.twig');

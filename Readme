@@ -13,3 +13,7 @@ composer require doctrine/doctrine-migrations-bundle
 composer require easycorp/easyadmin-bundle
 composer require symfony/security-core
 composer require phpoffice/phpspreadsheet
+composer install para instalar las dependencias
+composer require rmunate/calendario-colombia
+
+

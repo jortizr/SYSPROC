@@ -60,7 +60,7 @@ class ExcelDataProcessor
                 'out_hour_2' => $outHour2,
                 'in_hour_3' => $inHour3,
                 'out_hour_3' => $outHour3,
-                'day' => $$dayOfWeek,
+                'day' => $dayOfWeek,
                 'holiday' => $holiday,
             ];
         }

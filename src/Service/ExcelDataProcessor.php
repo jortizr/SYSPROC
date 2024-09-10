@@ -2,10 +2,16 @@
 namespace App\Service;
 
 use DateTime;
-use Rmunate\Calendar\Colombia;
+use App\Service\FestiveDaysChecker;
 
 class ExcelDataProcessor
 {
+    private $festiveDaysChecker;
+
+    public function __construct(FestiveDaysChecker $festiveDaysChecker)
+    {
+        $this->festiveDaysChecker = $festiveDaysChecker;
+    }
     public function processData(array $sheetData): array
     {
         $processedData = [];
@@ -15,12 +21,17 @@ class ExcelDataProcessor
             // Aquí organizas los datos según los encabezados
             $company = $row['A'];
             $name = $row['B'];
-            $cod_nomina = $row['C'];
+            $cod_nomina = $row['C'] ?? null;
             $cc = $row['F'];
-
-
+            //valida si las celdas clave tienen valores null
+            if(empty($cod_nomina)){
+                continue;
+            }
+            
             // Divide la fecha y la hora
-            list($date, $time) = explode(' ', $row['D'], 2);
+            if($row['D'] !== null){
+                list($date, $time) = explode(' ', $row['D'], 2);
+            }
 
             // Dependiendo del estado (E), se asigna la hora
             $inHour = null;
@@ -35,12 +46,8 @@ class ExcelDataProcessor
 
             //validar si es un dia festivo
             $dateFormat = DateTime::createFromFormat('d/m/Y', $date);
-            $resultDate = $dateFormat->format('Y-m-d');
+            $holiday = $this->festiveDaysChecker->isHoliday($dateFormat->format('Y-m-d'));
             
-
-            $dayOfWeek= date('l', strtotime($date));
-
-
             if ($row['E'] === 'Entrada') {
                 $inHour = $time;
             } elseif ($row['E'] === 'Salida') {
@@ -64,7 +71,7 @@ class ExcelDataProcessor
                 'holiday' => $holiday,
             ];
         }
-
+        dd($processedData);
         // Aquí podrías realizar el paso 2, uniendo los registros según sea necesario
         return $this->mergeEntries($processedData);
     }

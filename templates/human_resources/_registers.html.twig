@@ -21,15 +21,22 @@
 			<thead >
 				<tr>
 					{% for headers in header %}
-						<th class="text-center align-middle">{{ headers }}</th>
-					{% endfor %}
+                    <th class="text-center align-middle">      
+                            {{ headers }}
+                    </th>
+                {% endfor %}
 				</tr>
 			</thead>
 			<tbody>
 				{% for row in sheetData %}
 					<tr>
-						{% for cell in row %}
-							<td>{{ cell }}</td>
+						{% for key, cell in row %}
+						{# Verifica si es el campo 'holiday' y si es true #}
+							{% if key == 'holiday' and cell == true %}
+								<td class="align-middle" style="background-color: red; color: white;">Día festivo</td>
+							{% else %}
+								<td>{{ cell }}</td>
+							{% endif %}
 						{% endfor %}
 					</tr>
 				{% endfor %}

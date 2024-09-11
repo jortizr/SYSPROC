@@ -71,7 +71,6 @@ class ExcelDataProcessor
                 'holiday' => $holiday,
             ];
         }
-        dd($processedData);
         // Aquí podrías realizar el paso 2, uniendo los registros según sea necesario
         return $this->mergeEntries($processedData);
     }

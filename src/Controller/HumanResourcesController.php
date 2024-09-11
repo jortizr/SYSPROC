@@ -88,6 +88,4 @@ class HumanResourcesController extends AbstractController
     {
         return $this->render('human_resources/_certificate.html.twig');
     }
-
-
 }

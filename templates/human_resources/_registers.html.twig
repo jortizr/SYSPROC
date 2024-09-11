@@ -1,19 +1,30 @@
 {# templates/human_resources/biometrico.html.twig #}
 {% extends 'human_resources/human_resource.html.twig' %}
+{% block javascripts %}
+	{{ encore_entry_script_tags('app') }}
+{% endblock %}
+
 
 {% block content %}
     <h1>CARGA DE REGISTROS</h1>
 	<h1>Cargar Archivo Excel</h1>
+	<div class="container">
+		{# Formulario para cargar el archivo Excel #}
+		<form id="uploadForm" action="{{ path('app_biometric') }}" method="post" enctype="multipart/form-data" class="text-center">
+			<div class="mb-3 container pt-5">
+				<label for="excel_file" class="form-label">Seleccione un archivo Excel:</label>
+				<input type="file" name="excel_file" id="excel_file" class="form-control form-control-sm" required>
+			</div>
+            {# Botón para enviar (inicialmente visible) #}
+            <button id="submitBtn" type="submit" class="btn btn-primary bottom-0">Cargar</button>
+            {# Botón de loading (inicialmente oculto) #}
+            <button id="loadingBtn" class="btn btn-primary" type="button" disabled style="display: none;">
+                <span class="spinner-grow spinner-grow-sm"></span>
+                Procesando..
+            </button>
 
-	{# Formulario para cargar el archivo Excel #}
-	<form action="{{ path('app_biometric') }}" method="post" enctype="multipart/form-data">
-		<div class="mb-3">
-			<label for="excel_file" class="form-label">Seleccione un archivo Excel:</label>
-			<input type="file" name="excel_file" id="excel_file" class="form-control" required>
-		</div>
-		<button type="submit" class="btn btn-primary">Cargar</button>
-	</form>
-
+		</form>
+	</div>
 	{# Previsualización de los datos, si están presentes #}
 	{% if sheetData is defined %}
 		<h2 class="mt-5">Previsualización de Datos</h2>
@@ -42,10 +53,13 @@
 				{% endfor %}
 			</tbody>
 		</table>
-
-		{# Botón para guardar los datos en la base de datos #}
-		<form action="#" method="post">
-			<button type="submit" class="btn btn-success">Guardar en Base de Datos</button>
-		</form>
+		<br><br>
+				{# Botón para guardar los datos en la base de datos #}
+			<form action="#" method="post" class="position-fixed bottom-0 end-0 translate-middle-x mb-4">
+				<button type="submit" class="btn btn-success my-2">
+					<i class="bi bi-save"></i>
+				Guardar</button>
+			</form>
 	{% endif %}
+
 {% endblock %}

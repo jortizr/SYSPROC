@@ -1,8 +1,8 @@
 <?php
 namespace App\Service;
-
 use DateTime;
 use App\Service\FestiveDaysChecker;
+use IntlDateFormatter;
 
 class ExcelDataProcessor
 {
@@ -23,11 +23,12 @@ class ExcelDataProcessor
             $name = $row['B'];
             $cod_nomina = $row['C'] ?? null;
             $cc = $row['F'];
+            
             //valida si las celdas clave tienen valores null
             if(empty($cod_nomina)){
                 continue;
             }
-            
+
             // Divide la fecha y la hora
             if($row['D'] !== null){
                 list($date, $time) = explode(' ', $row['D'], 2);
@@ -47,12 +48,18 @@ class ExcelDataProcessor
             //validar si es un dia festivo
             $dateFormat = DateTime::createFromFormat('d/m/Y', $date);
             $holiday = $this->festiveDaysChecker->isHoliday($dateFormat->format('Y-m-d'));
+            //valida que dia segun la fecha
+            if($dateFormat->format('l') === 'Sunday'){
+                $dayOfWeek = 'Domingo';
+            }
             
             if ($row['E'] === 'Entrada') {
                 $inHour = $time;
             } elseif ($row['E'] === 'Salida') {
                 $outHour = $time;
             }
+            //validar que dia de la semana es
+            
 
             // Organiza la información para el primer registro
             $processedData[] = [
@@ -70,7 +77,10 @@ class ExcelDataProcessor
                 'day' => $dayOfWeek,
                 'holiday' => $holiday,
             ];
+
         }
+            $processedData = $this->sortDataByDateAndName($processedData);
+            
         // Aquí podrías realizar el paso 2, uniendo los registros según sea necesario
         return $this->mergeEntries($processedData);
     }
@@ -114,4 +124,37 @@ class ExcelDataProcessor
 
         return array_values($mergedData); // Retorna el array fusionado sin claves
     }
+
+    private function sortDataByDateAndName(array $processedData): array {
+        usort($processedData, function ($a, $b) {
+                    // Comparar por fecha
+                    $dateComparison = strcmp($a['name'], $b['name']);
+                    
+                    // Si las fechas son iguales, comparar por nombre
+                    if ($dateComparison === 0) {
+                        return strcmp($a['date'], $b['date']);
+                    }
+                
+                    // Si las fechas son diferentes, devolver el resultado de la comparación por fecha
+                    return $dateComparison;
+                });
+
+        return $processedData;
+    }
+    //funcion para obtener el dia de la semana en español
+    private function getDayOfWeekInSpanish($date) {
+        // Crear un formateador de fecha en español
+        $formatter = new IntlDateFormatter(
+            'es_ES', // Locale en español
+            IntlDateFormatter::FULL, // Formato completo
+            IntlDateFormatter::NONE, // No se necesita formato para la hora
+            null, // Usar el formato por defecto
+            null, // Usar el formato por defecto
+            'eeee' // Formato para el nombre completo del día
+        );
+    
+        // Formatear la fecha para obtener el nombre del día de la semana en español
+        return $formatter->format($date);
+    }
+    
 }

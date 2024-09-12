@@ -48,6 +48,9 @@ class Biometric
     #[ORM\Column(type: Types::TIME_IMMUTABLE, nullable: true)]
     private ?\DateTimeImmutable $out_hour_3 = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?bool $holiday = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -181,6 +184,18 @@ class Biometric
     public function setOutHour3(?\DateTimeImmutable $out_hour_3): static
     {
         $this->out_hour_3 = $out_hour_3;
+
+        return $this;
+    }
+
+    public function isHoliday(): ?bool
+    {
+        return $this->holiday;
+    }
+
+    public function setHoliday(?bool $holiday): static
+    {
+        $this->holiday = $holiday;
 
         return $this;
     }

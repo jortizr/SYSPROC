@@ -33,7 +33,6 @@ class ExcelDataProcessor
             if($row['D'] !== null){
                 list($date, $time) = explode(' ', $row['D'], 2);
             }
-
             // Dependiendo del estado (E), se asigna la hora
             $inHour = null;
             $outHour = null;
@@ -48,6 +47,8 @@ class ExcelDataProcessor
             //validar si es un dia festivo
             $dateFormat = DateTime::createFromFormat('d/m/Y', $date);
             $holiday = $this->festiveDaysChecker->isHoliday($dateFormat->format('Y-m-d'));
+
+            $date = $dateFormat->format('Y-m-d');
             //valida que dia segun la fecha
             if($dateFormat->format('l') === 'Sunday'){
                 $dayOfWeek = 'Domingo';
@@ -142,7 +143,7 @@ class ExcelDataProcessor
         return $processedData;
     }
     //funcion para obtener el dia de la semana en español
-    private function getDayOfWeekInSpanish($date) {
+    public function getDayOfWeekInSpanish($date) {
         // Crear un formateador de fecha en español
         $formatter = new IntlDateFormatter(
             'es_ES', // Locale en español

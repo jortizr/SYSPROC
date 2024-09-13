@@ -6,8 +6,6 @@
 
 
 {% block content %}
-    <h1 class="h2 text-center ">CARGA DE REGISTROS</h1>
-
 	<div class="container">
 		{# Formulario para cargar el archivo Excel #}
 		<form id="uploadForm" action="{{ path('app_biometric') }}" method="post" enctype="multipart/form-data" class="text-center">
@@ -58,12 +56,12 @@
 		</table>
 		<br><br>
 				{# Botón para guardar los datos en la base de datos #}
-			<form id="uploadForm" action="{{ path('app_import_biometrico')}}" method="post" class="position-fixed bottom-0 end-0 translate-middle-x mb-4">
-				<button id="submitBtn" type="submit" class="btn btn-success my-2">
+			<form id="updateForm" action="{{ path('app_import_biometrico')}}" method="post" class="position-fixed bottom-0 end-0 translate-middle-x mb-4">
+				<button id="submitBtnUpdate" type="submit" class="btn btn-success my-2">
 					<i class="bi bi-save"></i>
 				Guardar</button>
 
-				<button id="loadingBtn" class="btn btn-success my-2" type="button" disabled style="display: none;">
+				<button id="loadingBtnUpdate" class="btn btn-success my-2" type="button" disabled style="display: none;">
                 <span class="spinner-grow spinner-grow-sm"></span>
                 Guardando..
             	</button>

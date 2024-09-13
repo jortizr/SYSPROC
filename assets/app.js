@@ -9,3 +9,4 @@
 import './styles/app.css';
 import './js/formLoader';
 import './js/alerts';
+import './styles/customs.scss'

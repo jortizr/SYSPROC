@@ -11,17 +11,16 @@
 	
 {% endblock %}
 {% block body %}
-	<div class="container-fluid bg-green">
+
 		{# menu lateral #}
 			{{ include('human_resources/_menu_hr.html.twig') }}
 
 			{# pantalla dinamica #}
-			<div class="col py-3" style="margin-left: 280px;">
+			<div class="col " style="margin-left: 280px;">
 			 	{# Aquí se renderizará el contenido dinámico #}
 				{% block content %}
 
 				{% endblock %}
 			</div>
-		</div>
-	</div>
+
 {% endblock %}

@@ -1,69 +1,27 @@
-<div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark position-fixed" style="height: 100vh;">
+<div class="col-15 col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
+	<button class="btn btn-dark d-md-none" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+		<i class=" bi bi-list"></i>
+	</button>
+</div>
+<div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark position-fixed" style="height: 100vh;"  id="sidebarMenu">
 	<div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
 		<a href="" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
 			<span class="fs-5 d-none d-sm-inline">Menu</span>
 		</a>
 		<ul class="nav nav-pills flex-column align-item-left mb-sm-auto mb-0 align-items-sm-start" id="menu">
-			<li class="nav-item">
-				<a href="{{ path('app_home')}}" class="nav-link  px-0 btn px-2 btn-dark text-light">
-					<i class="bi-house-door-fill"></i>
-					<span class="ms-1 d-none d-sm-inline ">Home</span>
-				</a>
-			</li>
-			<li class="nav-item">
-				<a href="{{path('app_biometric')}}" class="nav-link px-0  btn px-2 btn-dark text-light">
-					<i class="bi-fingerprint"></i>
-					<span class="ms-1 d-none d-sm-inline">Biometrico</span>
-				</a>
-			</li>
-			<li class="nav-item">
-				<a href="{{path('app_schedule')}}" class="nav-link px-0 btn px-2 btn-dark text-light">
-					<i class="bi-calendar-week"></i>
-					<span class="ms-1 d-none d-sm-inline">Horarios</span>
-				</a>
-			</li>
-			<li class="nav-item">
-				<a href="{{path('app_employees')}}" class="nav-link px-0 btn px-2 btn-dark text-light">
-					<i class="bi-people"></i>
-					<span class="ms-1 d-none d-sm-inline">Colaboradores</span>
-				</a>
-			</li>
-			<li class="nav-item">
-				<a href="{{path('app_nomina')}}" class="nav-link px-0 btn px-2 btn-dark text-light">
-					<i class="bi-receipt"></i>
-					<span class="ms-1 d-none d-sm-inline">Nomina</span>
-				</a>
-			</li>
-			<li class="nav-item">
-				<a href="{{path('app_certificate')}}" class="nav-link px-0 btn px-2 btn-dark text-light">
-					<i class="bi-file-earmark-pdf"></i>
-					<span class="ms-1 d-none d-sm-inline">Certificaciones</span>
-				</a>
-			</li>
+			{{ include('layout/_menu_item.html.twig', { route: 'app_home', icon: 'bi-house-door-fill', text: 'Home' }) }}
+			{{ include('layout/_menu_item.html.twig', { route: 'app_biometric', icon: 'bi-fingerprint', text: 'Biométrico' }) }}
+			{{ include('layout/_menu_item.html.twig', { route: 'app_schedule', icon: 'bi-calendar-week', text: 'Horarios' }) }}
+			{{ include('layout/_menu_item.html.twig', { route: 'app_employees', icon: 'bi-people', text: 'Colaboradores' }) }}
+			{{ include('layout/_menu_item.html.twig', { route: 'app_nomina', icon: 'bi-receipt', text: 'Nómina' }) }}
+			{{ include('layout/_menu_item.html.twig', { route: 'app_certificate', icon: 'bi-file-earmark-pdf', text: 'Certificaciones' }) }}
 		</ul>
-		<hr>
 		<div class="dropdown pb-4">
 			<a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-				<img src="https://github.com/mdo.png" alt="hugenerd" width="30" height="30" class="rounded-circle">
+				<i class="bi bi-person-circle"></i>
 				<span class="d-none d-sm-inline mx-1">Usuario</span>
 			</a>
 			<ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
-				{# <li>
-					<a class="dropdown-item" href="#">
-						<i class="bi-plus-circle"></i>
-						New project...</a>
-				</li>
-				<li>
-					<a class="dropdown-item" href="#">
-						<i class="bi-gear-fill"></i>
-						Settings</a>
-				</li>
-				<li>
-					<a class="dropdown-item" href="#">
-						<i class="bi-person-circle"></i>
-						Profile</a>
-				</li> #}
-				{# <li><hr class="dropdown-divider"></li> #}
 				<li>
 					<a class="dropdown-item" href="{{ path('app_logout')}}">
 						<i class="bi-box-arrow-right"></i>
@@ -71,6 +29,5 @@
 				</li>
 			</ul>
 		</div>
-
 	</div>
 </div>

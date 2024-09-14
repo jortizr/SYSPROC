@@ -1,0 +1,47 @@
+<div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark position-fixed" style="height: 100vh;">
+	<div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
+		<a href="" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+			<span class="fs-5 d-none d-sm-inline">Menu</span>
+		</a>
+		<ul class="nav nav-pills flex-column align-item-left mb-sm-auto mb-0 align-items-sm-start" id="menu">
+			<li class="nav-item">
+				<a href="{{ path('app_home')}}" class="nav-link  px-0 btn px-2 btn-dark text-light">
+					<i class="bi-house-door-fill"></i>
+					<span class="ms-1 d-none d-sm-inline ">Home</span>
+				</a>
+			</li>
+			<li class="nav-item">
+				<a href="{{path('app_biometric')}}" class="nav-link px-0  btn px-2 btn-dark text-light">
+					<i class="bi-fingerprint"></i>
+					<span class="ms-1 d-none d-sm-inline">Biometrico</span>
+				</a>
+			</li>
+			<li class="nav-item">
+				<a href="{{path('app_schedule')}}" class="nav-link px-0 btn px-2 btn-dark text-light">
+					<i class="bi-calendar-week"></i>
+					<span class="ms-1 d-none d-sm-inline">Horarios</span>
+				</a>
+			</li>
+			<li class="nav-item">
+				<a href="{{path('app_employees')}}" class="nav-link px-0 btn px-2 btn-dark text-light">
+					<i class="bi-people"></i>
+					<span class="ms-1 d-none d-sm-inline">Colaboradores</span>
+				</a>
+			</li>
+			<li class="nav-item">
+				<a href="{{path('app_nomina')}}" class="nav-link px-0 btn px-2 btn-dark text-light">
+					<i class="bi-receipt"></i>
+					<span class="ms-1 d-none d-sm-inline">Nomina</span>
+				</a>
+			</li>
+			<li class="nav-item">
+				<a href="{{path('app_certificate')}}" class="nav-link px-0 btn px-2 btn-dark text-light">
+					<i class="bi-file-earmark-pdf"></i>
+					<span class="ms-1 d-none d-sm-inline">Certificaciones</span>
+				</a>
+			</li>
+		</ul>
+		<hr>
+
+	</div>
+</div>

@@ -10,21 +10,35 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Biometric;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
+use Symfony\Bundle\SecurityBundle\Security;
+
+
 
 class HumanResourcesController extends AbstractController
 {
     private $excelProcessor;
+    private $security;
 
-    public function __construct(ExcelDataProcessor $excelProcessor)
-    {
+    public function __construct(ExcelDataProcessor $excelProcessor, Security $security)
+    {   
+        $this->security = $security;
         $this->excelProcessor = $excelProcessor;
     }
 
-
+  
     #[Route('/HR', name: 'app_human_resources')]
+    #[IsGranted('ROLE_USER')]
     public function index(): Response
     {
-        return $this->render('human_resources/human_resource.html.twig');
+        // Obtener el usuario logueado
+        $user = $this->security->getUser();
+
+        // Obtener los datos del usuario
+
+        return $this->render('human_resources/human_resource.html.twig', [
+            'user' => $user,
+        ]);
     }
 
     #[Route('/HR/biometric', name: 'app_biometric')]

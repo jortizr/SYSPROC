@@ -28,17 +28,10 @@ class HumanResourcesController extends AbstractController
 
   
     #[Route('/HR', name: 'app_human_resources')]
-    #[IsGranted('ROLE_USER')]
+
     public function index(): Response
     {
-        // Obtener el usuario logueado
-        $user = $this->security->getUser();
-
-        // Obtener los datos del usuario
-
-        return $this->render('human_resources/human_resource.html.twig', [
-            'user' => $user,
-        ]);
+        return $this->render('human_resources/human_resource.html.twig');
     }
 
     #[Route('/HR/biometric', name: 'app_biometric')]
@@ -48,7 +41,7 @@ class HumanResourcesController extends AbstractController
         $file = $request->files->get('excel_file');
 
         if ($file && $file->getClientOriginalExtension() !== 'xlsx') {
-            throw new \Exception('El archivo adjuntado no tiene la extensión .xlsx.');
+            throw new \Exception('El archivo adjusted no tiene la extension .xlsx.');
         }
 
         if($file){

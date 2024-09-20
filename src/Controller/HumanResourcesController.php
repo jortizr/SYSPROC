@@ -10,20 +10,20 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Biometric;
-use Symfony\Component\Security\Http\Attribute\IsGranted;
-use Symfony\Bundle\SecurityBundle\Security;
+use App\Service\CalculateWorkDay;
+
 
 
 
 class HumanResourcesController extends AbstractController
 {
     private $excelProcessor;
-    private $security;
+    private $calculateWorkDay;
 
-    public function __construct(ExcelDataProcessor $excelProcessor, Security $security)
+    public function __construct(ExcelDataProcessor $excelProcessor, CalculateWorkDay $calculateWorkDay)
     {   
-        $this->security = $security;
         $this->excelProcessor = $excelProcessor;
+        $this->calculateWorkDay = $calculateWorkDay;
     }
 
   
@@ -49,7 +49,6 @@ class HumanResourcesController extends AbstractController
             $sheetData = $spreadsheet->getActiveSheet()->toArray(null, true, true, true);
 
             $header =[
-                'A' => 'Departamento',
                 'B' => 'Colaborador',
                 'C' => 'Cod. Nomina',
                 'D' => 'Cedula',
@@ -62,18 +61,29 @@ class HumanResourcesController extends AbstractController
                 'K' => 'Hora salida 3',
                 'L' => 'Dia',
                 'M' => 'Dia Festivo',
+                'N' => 'HD',
+                'O' => 'H.E.D', 
+                'P' => 'H.E.N', 
+                'Q' => 'R.N.', 
+                'R' => 'H.E.D.F', 
+                'S' => 'H.E.N.F', 
+                'T' => 'R.N.F'
             ];
             //  Encabezados esperados
              $expectedHeaders = ['Departamento', 'Nombre y Apellido', 'No.ID', 'Fecha/Hora', 'Estado', 'No.Cédula'];
              // Obtener los encabezados del archivo (primera fila del array sheetData)
             $fileHeaders = array_values($sheetData[1]);  // Convierte los encabezados a un array de valores
             // Comparar los encabezados
-            if ($fileHeaders !== $expectedHeaders) {
-                throw new \Exception('El archivo excel no tiene el formato correcto. Verifica el archivo y vuelve a intentarlo.');
-            }
+            // if ($fileHeaders !== $expectedHeaders) {
+            //     throw new \Exception('El archivo excel no tiene el formato correcto. Verifica el archivo y vuelve a intentarlo.');
+            // }
             
             // Procesa los datos usando la clase separada
             $organizedData = $this->excelProcessor->processData($sheetData);
+                // Usage
+            $organizedData = $this->calculateWorkDay->calculateHours($organizedData);
+
+
             // Guardar los datos en la sesión para subirlos a la base de datos en otra ruta
             $session->set('sheetData', $organizedData);
 

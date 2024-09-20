@@ -29,11 +29,12 @@
 	{% if sheetData is defined %}
 		<h2 class="mt-5">Previsualización de Datos</h2>
 		{# Tabla con los datos del archivo Excel #}
+		<div class="table-responsive"> </div>
 		<table class="table table-striped mt-3">
 			<thead >
 				<tr>
 					{% for headers in header %}
-                    <th class="text-center align-middle">      
+                    <th class=" text-center align-middle">      
                             {{ headers }}
                     </th>
                 {% endfor %}
@@ -45,15 +46,16 @@
 						{% for key, cell in row %}
 						{# Verifica si es el campo 'holiday' y si es true #}
 							{% if key == 'holiday' and cell == true %}
-								<td class="align-middle" style="background-color: red; color: white;">Día festivo</td>
+								<td class=" text-nowrap align-middle" style="background-color: red; color: white;">Día festivo</td>
 							{% else %}
-								<td>{{ cell }}</td>
+								<td contenteditable="true" class="text-nowrap align-middle text-center">{{ cell }}</td>
 							{% endif %}
 						{% endfor %}
 					</tr>
 				{% endfor %}
 			</tbody>
 		</table>
+		</div>
 		<br><br>
 				{# Botón para guardar los datos en la base de datos #}
 			<form id="updateForm" action="{{ path('app_import_biometrico')}}" method="post" class="position-fixed bottom-0 end-0 translate-middle-x mb-4">

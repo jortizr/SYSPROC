@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Service;
+namespace App\Service;
 use DateTime;
 
 class CalculateWorkDay
@@ -23,7 +23,7 @@ class CalculateWorkDay
                 if ($inHour && $outHour) {
                     $inTime = new DateTime($inHour);
                     $outTime = new DateTime($outHour);
-    
+                    
                     $interval = $inTime->diff($outTime);
                     $hoursWorked = $interval->h + $interval->i / 60;
     
@@ -187,6 +187,5 @@ class CalculateWorkDay
         return $totalSurcharge;
     }
     
-    // Usage
-    // $processedData = calculateHours($processedData);
+
 }

@@ -54,7 +54,6 @@ class ExcelDataProcessor
             if($dateFormat->format('l') === 'Sunday'){
                 $dayOfWeek = 'Domingo';
             }
-            
             if ($row['E'] === 'Entrada') {
                 $inHour = $date . ' ' . $time;
             } elseif ($row['E'] === 'Salida') {
@@ -89,13 +88,19 @@ class ExcelDataProcessor
     private function mergeEntries(array $data): array
     {
         $mergedData = [];
-
+        
         foreach ($data as $entry) {
+            
             // Lógica para fusionar registros con el mismo nombre, fecha, etc.
-            $key = $entry['name'] . $entry['date'];
-            if (!isset($mergedData[$key])) {
+            $key = $entry['name'];
+            $key2 = $entry['date'];
+            
+
+            if (!isset($mergedData['name'])) {
+                
                 // Si no existe, lo agregamos al array
-                $mergedData[$key] = $entry;
+                $mergedData= $entry;
+                dd($mergedData, $key, $mergedData['name'] === $key);
             } else {
                 
                 // Si ya existe, unimos las horas de entrada y salida

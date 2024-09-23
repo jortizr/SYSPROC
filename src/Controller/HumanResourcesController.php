@@ -41,7 +41,7 @@ class HumanResourcesController extends AbstractController
         $file = $request->files->get('excel_file');
 
         if ($file && $file->getClientOriginalExtension() !== 'xlsx') {
-            throw new \Exception('El archivo adjusted no tiene la extension .xlsx.');
+            throw new \Exception('El archivo adjuntado no tiene la extension .xlsx.');
         }
 
         if($file){
@@ -49,25 +49,25 @@ class HumanResourcesController extends AbstractController
             $sheetData = $spreadsheet->getActiveSheet()->toArray(null, true, true, true);
 
             $header =[
-                'B' => 'Colaborador',
-                'C' => 'Cod. Nomina',
-                'D' => 'Cedula',
-                'E' => 'Fecha registro (yyyy/mm/dd)',
-                'F' => 'Hora entrada',
-                'G' => 'Hora salida',
-                'H' => 'Hora entrada 2',
-                'I' => 'Hora salida 2',
-                'J' => 'Hora entrada 3',
-                'K' => 'Hora salida 3',
-                'L' => 'Dia',
-                'M' => 'Dia Festivo',
-                'N' => 'HD',
-                'O' => 'H.E.D', 
-                'P' => 'H.E.N', 
-                'Q' => 'R.N.', 
-                'R' => 'H.E.D.F', 
-                'S' => 'H.E.N.F', 
-                'T' => 'R.N.F'
+                'Colaborador',
+                'Cod. Nomina',
+                'Cedula',
+                'Fecha registro (yyyy/mm/dd)',
+                'Hora entrada',
+                'Hora salida',
+                'Hora entrada 2',
+                'Hora salida 2',
+                'Hora entrada 3',
+                'Hora salida 3',
+                'Dia',
+                'Dia Festivo',
+                'HD',
+                'H.E.D', 
+                'H.E.N', 
+                'R.N.', 
+                'H.E.D.F', 
+                'H.E.N.F', 
+                'R.N.F'
             ];
             //  Encabezados esperados
              $expectedHeaders = ['Departamento', 'Nombre y Apellido', 'No.ID', 'Fecha/Hora', 'Estado', 'No.Cédula'];

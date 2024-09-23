@@ -80,84 +80,45 @@ class ExcelDataProcessor
 
         }
             $processedData = $this->sortDataByDateAndName($processedData);
-            
-        // Aquí podrías realizar el paso 2, uniendo los registros según sea necesario
-        return $this->mergeEntries($processedData);
+            $combinateData =$this->mergeEntries($processedData);
+            // Aquí podrías realizar el paso 2, uniendo los registros según sea necesario
+        return $combinateData;
     }
 
     private function mergeEntries(array $data): array
     {
-        $mergedData = [
-            // "name" => "CARLOS ALBERTO MOLINA TI",
-            // "cod_nomina" => null,
-            // "cc" => "1108835157",
-            // "date" => "2024-08-31",
-            // "in_hour" => null,
-            // "out_hour" => "2024-08-31 02:13:50 a.m.",
-            // "in_hour_2" => null,
-            // "out_hour_2" => null,
-            // "in_hour_3" => null,
-            // "out_hour_3" => null,
-            // "day" => null,
-            // "holiday" => false,
-        ];
-       
+        $mergedData = [];
         foreach ($data as $entry) {
-            
-            // Lógica para fusionar registros con el mismo nombre, fecha, etc.
-            $key = $entry['name'];
-            $key2 = $entry['date'];
-            
-
-            if (!isset($mergedData['name'])) {
-                
+            $key = $entry['name'] . '_' . $entry['date'];
+    
+            if (!isset($mergedData[$key])) {
                 // Si no existe, lo agregamos al array
-                $mergedData= $entry;
-                
-            } elseif($mergedData['name'] === $key && $mergedData['date'] === $key2) {
-                
-                // Si ya existe, unimos las horas de entrada y salida
-                $existingEntry = &$mergedData[$key2];
-                
-
+                $mergedData[$key] = $entry;
+            } else {
+                // Si ya existe, fusionamos las horas
                 if (!is_null($entry['in_hour'])) {
-                    
-                    if(is_null($mergedData['in_hour'])){
-                        $existingEntry['in_hour']= $entry['in_hour'];
-                    }elseif(is_null($mergedData['in_hour_2'])){
-                        $existingEntry['in_hour_2']= $entry['in_hour_2'];
-                    }elseif(is_null($mergedData['in_hour_3'])){
-                        $existingEntry['in_hour_3']= $entry['in_hour_3'];
+                    if (is_null($mergedData[$key]['in_hour'])) {
+                        $mergedData[$key]['in_hour'] = $entry['in_hour'];
+                    } elseif (is_null($mergedData[$key]['in_hour_2'])) {
+                        $mergedData[$key]['in_hour_2'] = $entry['in_hour'];
+                    } elseif (is_null($mergedData[$key]['in_hour_3'])) {
+                        $mergedData[$key]['in_hour_3'] = $entry['in_hour'];
                     }
                 }
-
+    
                 if (!is_null($entry['out_hour'])) {
-                    
-                    if(is_null($mergedData['out_hour'])){
-                        $existingEntry['out_hour']= $entry['out_hour'];
-                    }elseif(is_null($mergedData['out_hour_2'])){
-                        $existingEntry['out_hour_2']= $entry['out_hour_2'];
-                    }elseif(is_null($mergedData['out_hour_3'])){
-                        $existingEntry['out_hour_3']= $entry['out_hour_3'];
+                    if (is_null($mergedData[$key]['out_hour'])) {
+                        $mergedData[$key]['out_hour'] = $entry['out_hour'];
+                    } elseif (is_null($mergedData[$key]['out_hour_2'])) {
+                        $mergedData[$key]['out_hour_2'] = $entry['out_hour'];
+                    } elseif (is_null($mergedData[$key]['out_hour_3'])) {
+                        $mergedData[$key]['out_hour_3'] = $entry['out_hour'];
                     }
                 }
-
-                
-                // si hay una hora de salida en entry dara true
-                // if (!is_null($entry['out_hour'])) {
-                //     if (is_null($existingEntry['out_hour'])) {
-                //         $existingEntry['out_hour'] = $entry['out_hour'];
-                //     } elseif (is_null($existingEntry['out_hour_2'])) {
-                //         $existingEntry['out_hour_2'] = $entry['out_hour_2'];
-                //     } elseif (is_null($existingEntry['out_hour_3'])) {
-                //         $existingEntry['out_hour_3'] = $entry['out_hour_3'];
-                //     }
-                // }
             }
         }
-
-        return array_values($mergedData); // Retorna el array fusionado sin claves
-    }
+        return array_values($mergedData); // Retorna el array fusionado sin claves asociativas
+}
 
     private function sortDataByDateAndName(array $processedData): array {
         usort($processedData, function ($a, $b) {

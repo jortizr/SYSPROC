@@ -11,9 +11,12 @@
 		<form id="uploadForm" action="{{ path('app_biometric') }}" method="post" enctype="multipart/form-data" class="text-center">
 			<div class="mb-3 container pt-5">
 			<h4 class="h4 p-2">Procesar registros del Biometrico</h4>
+			<a href="#" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#helpModal"><i class="bi bi-question-circle-fill sm" style="color:#044AF7;"></i></a>
 				<label for="excel_file" class="form-label text-leght">Seleccione un archivo Excel:</label>
 				<input type="file" name="excel_file" id="excel_file" class="form-control form-control-sm" required>
+				
 			</div>
+			
             {# Botón para enviar (inicialmente visible) #}
             <button id="submitBtn" type="submit" class="btn btn-outline-success bottom-0">Cargar Excel</button>
             {# Botón de loading (inicialmente oculto) #}
@@ -25,6 +28,7 @@
 		</form>
 		<hr>
 	</div>
+	
 	{# Previsualización de los datos, si están presentes #}
 	{% if sheetData is defined %}
 		<h2 class="mt-5">Previsualización de Datos</h2>
@@ -71,5 +75,16 @@
 	{% endif %}
 
 	{{ include('_message.html.twig') }}
+	        <!-- Incluir el modal reutilizable -->
+        {% include 'components/_help_modal.html.twig' with {
+            title: 'Instrucciones para cargar el archivo Excel',
+            content: '<p>Asegúrese de que el archivo Excel tenga el formato correcto...</p>
+					<ul>
+						<li>Formato <strong>.xlsx</strong></li>
+						<li><strong>Nombre y Apellido, No.ID,Fecha/Hora, Estado, No.Cédula</strong></li>
+						</ul>'
+        } %}
+
+
 
 {% endblock %}

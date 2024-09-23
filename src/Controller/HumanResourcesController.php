@@ -48,6 +48,16 @@ class HumanResourcesController extends AbstractController
             $spreadsheet = IOFactory::load($file->getPathname());
             $sheetData = $spreadsheet->getActiveSheet()->toArray(null, true, true, true);
 
+             // Obtener los encabezados del archivo (primera fila del array sheetData)
+            $fileHeaders = array_values($sheetData[1]);  // Convierte los encabezados a un array de valores
+            //  Encabezados esperados
+            $expectedHeaders = ['Company', 'Nombre y Apellido', 'No.ID', 'Fecha/Hora', 'Estado', 'No.Cédula'];
+            //eliminar el primer elemento del array
+            $expectedHeaders2 = array_slice($expectedHeaders, 1, 5);
+            // Comparar los encabezados
+            if ($fileHeaders !== $expectedHeaders && $fileHeaders !== $expectedHeaders2) {
+                throw new \Exception('El archivo excel no tiene el formato correcto. Para mas info, Clic en el icono de ayuda');
+            }
             $header =[
                 'Colaborador',
                 'Cod. Nomina',
@@ -61,27 +71,18 @@ class HumanResourcesController extends AbstractController
                 'Hora salida 3',
                 'Dia',
                 'Dia Festivo',
-                'HD',
-                'H.E.D', 
-                'H.E.N', 
-                'R.N.', 
-                'H.E.D.F', 
-                'H.E.N.F', 
-                'R.N.F'
+                // 'HD',
+                // 'H.E.D', 
+                // 'H.E.N', 
+                // 'R.N.', 
+                // 'H.E.D.F', 
+                // 'H.E.N.F', 
+                // 'R.N.F'
             ];
-            //  Encabezados esperados
-             $expectedHeaders = ['Departamento', 'Nombre y Apellido', 'No.ID', 'Fecha/Hora', 'Estado', 'No.Cédula'];
-             // Obtener los encabezados del archivo (primera fila del array sheetData)
-            $fileHeaders = array_values($sheetData[1]);  // Convierte los encabezados a un array de valores
-            // Comparar los encabezados
-            // if ($fileHeaders !== $expectedHeaders) {
-            //     throw new \Exception('El archivo excel no tiene el formato correcto. Verifica el archivo y vuelve a intentarlo.');
-            // }
             
             // Procesa los datos usando la clase separada
             $organizedData = $this->excelProcessor->processData($sheetData);
-                // Usage
-            $organizedData = $this->calculateWorkDay->calculateHours($organizedData);
+            //evaluar si es un dia festivo
 
 
             // Guardar los datos en la sesión para subirlos a la base de datos en otra ruta
@@ -89,7 +90,7 @@ class HumanResourcesController extends AbstractController
 
             return $this->render('human_resources/_registers.html.twig', [
                 'sheetData' => $organizedData,
-                'header' => $header
+                'header' => $header,
             ]);
         }
         return $this->render('human_resources/_registers.html.twig');
@@ -107,8 +108,6 @@ class HumanResourcesController extends AbstractController
         if ($sheetData) {
             foreach ($sheetData as $data) {
                 $biometrico = new Biometric();
-                $biometrico->setCompany($data['company']);
-                $biometrico->setName($data['name']);
                 $biometrico->setCodNomina($data['cod_nomina']);
                 $biometrico->setCc($data['cc']);
                 $biometrico->setDate(new \DateTimeImmutable($data['date']));

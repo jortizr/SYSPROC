@@ -19,18 +19,21 @@ class ExcelDataProcessor
         
         foreach ($sheetData as $row) {
             // Aquí organizas los datos según los encabezados
-            $name = $row['A'] ?? null;
-            $cod_nomina = $row['B'];
-            $cc = $row['E'];
+            $company = $row['A'];
+            $name = $row['B'] ?? null;
+            $cod_nomina = $row['C'];
+            $cc = $row['F'];
+            $state = $row['E'];
             
             //valida si las celdas clave tienen valores null
             if(empty($name)){
                 continue;
             }
-
+            
             // Divide la fecha y la hora
-            if($row['C'] !== null){
-                list($date, $time) = explode(' ', $row['C'], 2);
+            if($row['D'] !== null){
+                list($date, $time) = explode(' ', $row['D'], 2);
+
             }
 
 
@@ -44,7 +47,7 @@ class ExcelDataProcessor
             $outHour3 = null;
             $dayOfWeek = null;
             $holiday = null;
-
+            
             //validar si es un dia festivo
             $dateFormat = DateTime::createFromFormat('d/m/Y', $date);
             $holiday = $this->festiveDaysChecker->isHoliday($dateFormat->format('Y-m-d'));
@@ -54,16 +57,17 @@ class ExcelDataProcessor
             if($dateFormat->format('l') === 'Sunday'){
                 $dayOfWeek = 'Domingo';
             }
-            if ($row['D'] === 'Entrada') {
+            if ($state === 'Entrada') {
                 $inHour = $date . ' ' . $time;
-            } elseif ($row['D'] === 'Salida' || $row['D'] === 'Sal/T.Extra') {
+            } elseif ($state === 'Salida' || $state === 'Sal/T.Extra') {
                 $outHour = $date . ' ' . $time;
             }
             //validar que dia de la semana es
-            
+        
 
             // Organiza la información para el primer registro
             $processedData[] = [
+                'company' => $company,
                 'name' => $name,
                 'cod_nomina' => $cod_nomina,
                 'cc' => $cc,
@@ -80,6 +84,7 @@ class ExcelDataProcessor
 
         }
             $processedData = $this->sortDataByDateAndName($processedData);
+            
             $combinateData =$this->mergeEntries($processedData);
             // Aquí podrías realizar el paso 2, uniendo los registros según sea necesario
         return $combinateData;

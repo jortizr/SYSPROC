@@ -6,7 +6,7 @@
 
 
 {% block content %}
-	<div class="container-fluid">
+	<div class="container-fluid ">
 		{# Formulario para cargar el archivo Excel #}
 		<form id="uploadForm" action="{{ path('app_biometric') }}" method="post" enctype="multipart/form-data" class="text-center">
 			<div class="mb-3 container pt-5">
@@ -75,13 +75,13 @@
 	{% endif %}
 
 	{{ include('_message.html.twig') }}
-	        <!-- Incluir el modal reutilizable -->
+	        <!--se importa el modal -->
         {% include 'components/_help_modal.html.twig' with {
             title: 'Instrucciones para cargar el archivo Excel',
             content: '<p>Asegúrese de que el archivo Excel tenga el formato correcto...</p>
 					<ul>
 						<li>Formato <strong>.xlsx</strong></li>
-						<li><strong>Nombre y Apellido, No.ID,Fecha/Hora, Estado, No.Cédula</strong></li>
+						<li><strong>Departamento, Nombre y Apellido, No.ID,Fecha/Hora, Estado, No.Cédula</strong></li>
 						</ul>'
         } %}
 

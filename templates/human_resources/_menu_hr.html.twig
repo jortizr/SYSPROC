@@ -1,33 +1,17 @@
-<div class="col-15 col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
-	<button class="btn btn-dark d-md-none" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
-		<i class=" bi bi-list"></i>
-	</button>
-</div>
-<div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark position-fixed" style="height: 100vh;"  id="sidebarMenu">
-	<div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
-		<a href="" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-			<span class="fs-5 d-none d-sm-inline">Menu</span>
-		</a>
-		<ul class="nav nav-pills flex-column align-item-left mb-sm-auto mb-0 align-items-sm-start" id="menu">
-			{{ include('layout/_menu_item.html.twig', { route: 'app_home', icon: 'bi-house-door-fill', text: 'Home' }) }}
-			{{ include('layout/_menu_item.html.twig', { route: 'app_biometric', icon: 'bi-fingerprint', text: 'Biométrico' }) }}
-			{{ include('layout/_menu_item.html.twig', { route: 'app_schedule', icon: 'bi-calendar-week', text: 'Horarios' }) }}
-			{{ include('layout/_menu_item.html.twig', { route: 'app_employees', icon: 'bi-people', text: 'Colaboradores' }) }}
-			{{ include('layout/_menu_item.html.twig', { route: 'app_nomina', icon: 'bi-receipt', text: 'Nómina' }) }}
-			{{ include('layout/_menu_item.html.twig', { route: 'app_certificate', icon: 'bi-file-earmark-pdf', text: 'Certificaciones' }) }}
-		</ul>
-		<div class="dropdown pb-4">
-			<a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-				<i class="bi bi-person-circle"></i>
-				<span class="d-none d-sm-inline mx-1">{{ app.user.fullname }}</span><br>
-			</a>
-			<ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
-				<li>
-					<a class="dropdown-item" href="{{ path('app_logout')}}">
-						<i class="bi-box-arrow-right"></i>
-						cerrar sesion</a>
-				</li>
-			</ul>
-		</div>
-	</div>
+<div class="d-flex flex-column col-auto flex-shrink-0 p-3 text-bg-dark" style="width: 280px; height: 100vh;">
+	<a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+		<img src="{{ asset('images/logo.svg') }}" alt="logo" class="img-fluid" style="width: 80px;">
+		<span class="fs-4">Gestion Humana</span>
+	</a>
+	<hr>
+	<ul class="nav nav-pills flex-column mb-auto">
+		{{ include('layout/_menu_item.html.twig', { route: 'app_home', state: 'active', icon: 'bi-house-door-fill', text: 'Home' }) }}
+		{{ include('layout/_menu_item.html.twig', { route: 'app_biometric', state: '', icon: 'bi-fingerprint', text: 'Biométrico' }) }}
+		{{ include('layout/_menu_item.html.twig', { route: 'app_schedule', state: '', icon: 'bi-calendar-week', text: 'Horarios' }) }}
+		{{ include('layout/_menu_item.html.twig', { route: 'app_employees', state: '', icon: 'bi-people', text: 'Colaboradores' }) }}
+		{{ include('layout/_menu_item.html.twig', { route: 'app_nomina', state: '', icon: 'bi-receipt', text: 'Nómina' }) }}
+		{{ include('layout/_menu_item.html.twig', { route: 'app_certificate', state: '', icon: 'bi-file-earmark-pdf', text: 'Certificaciones' }) }}
+	</ul>
+	<hr>
+	{{ include('layout/_menu_profile.html.twig') }}
 </div>

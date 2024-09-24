@@ -51,14 +51,14 @@ class HumanResourcesController extends AbstractController
              // Obtener los encabezados del archivo (primera fila del array sheetData)
             $fileHeaders = array_values($sheetData[1]);  // Convierte los encabezados a un array de valores
             //  Encabezados esperados
-            $expectedHeaders = ['Company', 'Nombre y Apellido', 'No.ID', 'Fecha/Hora', 'Estado', 'No.Cédula'];
-            //eliminar el primer elemento del array
-            $expectedHeaders2 = array_slice($expectedHeaders, 1, 5);
+            $expectedHeaders = ['Departamento', 'Nombre y Apellido', 'No.ID', 'Fecha/Hora', 'Estado', 'No.Cédula'];
+
             // Comparar los encabezados
-            if ($fileHeaders !== $expectedHeaders && $fileHeaders !== $expectedHeaders2) {
+            if ($fileHeaders !== $expectedHeaders) {
                 throw new \Exception('El archivo excel no tiene el formato correcto. Para mas info, Clic en el icono de ayuda');
             }
             $header =[
+                'Departamento',
                 'Colaborador',
                 'Cod. Nomina',
                 'Cedula',
@@ -108,15 +108,19 @@ class HumanResourcesController extends AbstractController
         if ($sheetData) {
             foreach ($sheetData as $data) {
                 $biometrico = new Biometric();
+                $biometrico->setCompany($data['company']);
+                $biometrico->setName($data['name']);
                 $biometrico->setCodNomina($data['cod_nomina']);
                 $biometrico->setCc($data['cc']);
                 $biometrico->setDate(new \DateTimeImmutable($data['date']));
-                $biometrico->setInHour(new \DateTimeImmutable($data['in_hour']));
-                $biometrico->setOutHour(new \DateTimeImmutable($data['out_hour']));
-                $biometrico->setInHour2(new \DateTimeImmutable($data['in_hour_2']));
-                $biometrico->setOutHour2(new \DateTimeImmutable($data['out_hour_2']));
-                $biometrico->setInHour3(new \DateTimeImmutable($data['in_hour_3']));
-                $biometrico->setOutHour3(new \DateTimeImmutable($data['out_hour_3']));
+                // Validar si los campos de hora tienen valor, si no, asignar null
+                $biometrico->setInHour(!empty($data['in_hour']) ? new \DateTimeImmutable($data['in_hour']) : null);
+                $biometrico->setOutHour(!empty($data['out_hour']) ? new \DateTimeImmutable($data['out_hour']) : null);
+                $biometrico->setInHour2(!empty($data['in_hour_2']) ? new \DateTimeImmutable($data['in_hour_2']) : null);
+                $biometrico->setOutHour2(!empty($data['out_hour_2']) ? new \DateTimeImmutable($data['out_hour_2']) : null);
+                $biometrico->setInHour3(!empty($data['in_hour_3']) ? new \DateTimeImmutable($data['in_hour_3']) : null);
+                $biometrico->setOutHour3(!empty($data['out_hour_3']) ? new \DateTimeImmutable($data['out_hour_3']) : null);
+ 
                 $biometrico->setHoliday($data['holiday']);
                 $entityManager->persist($biometrico); // Preparar los datos para ser guardados en la base de datos
             }

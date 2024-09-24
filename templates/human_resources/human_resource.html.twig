@@ -2,25 +2,23 @@
 
 {% block title %}Gestion Humana
 {% endblock %}
+
 {% block stylesheets %}
 	{{ encore_entry_link_tags('app') }}
+	{{ parent() }}
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
 {% endblock %}
 
 {% block javascripts %}
 	{{ encore_entry_script_tags('app') }}
-	
 {% endblock %}
+
 {% block body %}
-
-		{# menu lateral #}
+		<div class="d-flex">
 			{{ include('human_resources/_menu_hr.html.twig') }}
-
-			{# pantalla dinamica #}
-			<div class="col " style="margin-left: 280px;">
-			 	{# Aquí se renderizará el contenido dinámico #}
-				{% block content %}
-
-				{% endblock %}
+			<!-- Bloque para el contenido dinámico -->
+			<div class="col" style="overflow:auto;">
+				{% block content %}{% endblock %}
 			</div>
-
+		</div>
 {% endblock %}

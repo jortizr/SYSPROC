@@ -5,8 +5,6 @@
 
 {% block stylesheets %}
 	{{ encore_entry_link_tags('app') }}
-	{{ parent() }}
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
 {% endblock %}
 
 {% block javascripts %}
@@ -14,11 +12,16 @@
 {% endblock %}
 
 {% block body %}
-		<div class="d-flex">
+	<div class="container-fluid ps-0">
+		<div class="row">
+			<div class="col-sm-2 position-fixed">
 			{{ include('human_resources/_menu_hr.html.twig') }}
+			</div>
+			<div class="col-sm-2"></div>
 			<!-- Bloque para el contenido dinámico -->
-			<div class="col" style="overflow:auto;">
+			<div class="col-sm" style="overflow:auto;">
 				{% block content %}{% endblock %}
 			</div>
 		</div>
+	</div>
 {% endblock %}

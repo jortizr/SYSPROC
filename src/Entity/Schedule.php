@@ -37,6 +37,9 @@ class Schedule
     #[ORM\OneToMany(targetEntity: Employee::class, mappedBy: 'Id_schedule', orphanRemoval: true)]
     private Collection $employees;
 
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $date = null;
+
     public function __construct()
     {
         $this->employees = new ArrayCollection();
@@ -140,5 +143,17 @@ class Schedule
     public function __toString(): string
     {
         return $this->name;
+    }
+
+    public function getDate(): ?\DateTimeInterface
+    {
+        return $this->date;
+    }
+
+    public function setDate(\DateTimeInterface $date): static
+    {
+        $this->date = $date;
+
+        return $this;
     }
 }

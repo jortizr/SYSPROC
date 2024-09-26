@@ -2,5 +2,13 @@
 {% extends 'human_resources/human_resource.html.twig' %}
 
 {% block content %}
-    <h1>Horarios laborales</h1>
+    <h1 class="text-center">Horarios laborales</h1>
+    
+    {% if app.user %}
+        <label for="">Ingresa el horario laboral</label>
+        {{ form(form)}}
+    {% else %}
+
+    {% endif%}
+        <a href="{{ path('app_login') }}" class="btn btn-danger">Login</a>
 {% endblock %}

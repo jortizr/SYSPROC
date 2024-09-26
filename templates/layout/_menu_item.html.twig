@@ -1,5 +1,13 @@
 <li class="nav-item">
-	<a href="{{ path(route) }}" class="nav-link {{state}}" aria-current="page" style="color:white;">
+	<a href="{{ path(route) }}" 
+	class="nav-link 
+		{% if app.request.attributes.get('_route') == route %}
+		active
+		{% endif %}
+	" 
+	aria-current="page" 
+	style="color:white;"
+	>
 		<i class="{{ icon }}"></i>
 		{{ text }}
 	</a>

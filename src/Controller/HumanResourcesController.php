@@ -158,4 +158,10 @@ class HumanResourcesController extends AbstractController
         return $this->render('human_resources/_certificate.html.twig');
     }
 
+    #[Route('/HR/sidebar-test', name: 'app_sidebar_test')]
+    public function sideBarTest(): Response
+    {
+        return $this->render('layout/sidebar.html.twig');
+    }
+
 }

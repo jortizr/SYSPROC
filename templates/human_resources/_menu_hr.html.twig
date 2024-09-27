@@ -1,17 +1,23 @@
-<div class="d-flex flex-column col-sm flex-shrink-0 p-3 text-bg-dark " style="width: 250px; height: 100vh;">
-	<a href="/" class="d-flex align-items-center mb-3 mb-md-1 me-md-auto text-white text-decoration-none">
-		<img src="{{ asset('images/logo.svg') }}" alt="logo" class="img-fluid" style="width: 80px;">
-		<span class="fs-4">Gestion Humana</span>
-	</a>
-	<hr>
-	<ul class="nav nav-pills flex-column mb-auto">
-		{{ include('layout/_menu_item.html.twig', { route: 'app_home', state: 'active', icon: 'bi-house-door-fill', text: 'Home' }) }}
-		{{ include('layout/_menu_item.html.twig', { route: 'app_biometric', state: '', icon: 'bi-fingerprint', text: 'Biométrico' }) }}
-		{{ include('layout/_menu_item.html.twig', { route: 'app_schedule', state: '', icon: 'bi-calendar-week', text: 'Horarios' }) }}
-		{{ include('layout/_menu_item.html.twig', { route: 'app_employees', state: '', icon: 'bi-people', text: 'Colaboradores' }) }}
-		{{ include('layout/_menu_item.html.twig', { route: 'app_nomina', state: '', icon: 'bi-receipt', text: 'Nómina' }) }}
-		{{ include('layout/_menu_item.html.twig', { route: 'app_certificate', state: '', icon: 'bi-file-earmark-pdf', text: 'Certificaciones' }) }}
-	</ul>
-	<hr>
-	{{ include('layout/_menu_profile.html.twig') }}
-</div>
+<nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-dark sidebar collapse">
+	<div class="col-sm-2 position-fixed">
+		<div class="d-flex flex-column col-sm flex-shrink-0 p-3 text-bg-dark " style="width: 250px; height: 100vh;">
+			<a href="/" class="d-flex align-items-center mb-3 mb-md-1 me-md-auto text-white text-decoration-none">
+				<img src="{{ asset('images/logo.svg') }}" alt="logo" class="img-fluid" style="width: 80px;">
+				<span class="fs-4">Gestion Humana</span>
+			</a>
+			<hr>
+			<ul class="nav nav-pills flex-column mb-auto">
+				{{ include('layout/_menu_item.html.twig', { route: 'app_home', icon: 'bi-house-door-fill', text: 'Home' }) }}
+				{{ include('layout/_menu_item.html.twig', { route: 'app_biometric', icon: 'bi-fingerprint', text: 'Biométrico' }) }}
+				{{ include('layout/_menu_item.html.twig', { route: 'app_schedule', icon: 'bi-calendar-week', text: 'Horarios' }) }}
+				{{ include('layout/_menu_item.html.twig', { route: 'app_employees', icon: 'bi-people', text: 'Colaboradores' }) }}
+				{{ include('layout/_menu_item.html.twig', { route: 'app_nomina', icon: 'bi-receipt', text: 'Nómina' }) }}
+				{{ include('layout/_menu_item.html.twig', { route: 'app_certificate', icon: 'bi-file-earmark-pdf', text: 'Certificaciones' }) }}
+				{{ include('layout/_menu_item.html.twig', { route: 'app_sidebar_test', icon: 'bi-file-earmark-pdf', text: 'Test sidebar' }) }}
+
+			</ul>
+			<hr>
+			{{ include('layout/_menu_profile.html.twig') }}
+		</div>
+	</div>
+</nav>

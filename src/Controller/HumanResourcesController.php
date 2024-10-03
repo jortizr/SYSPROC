@@ -31,7 +31,7 @@ class HumanResourcesController extends AbstractController
 
     public function index(): Response
     {
-        return $this->render('human_resources/human_resource.html.twig');
+        return $this->render('layout/_welcome.html.twig');
     }
 
     #[Route('/HR/biometric', name: 'app_biometric')]

@@ -1,84 +1,88 @@
 {# templates/human_resources/biometrico.html.twig #}
-{% extends 'human_resources/human_resource.html.twig' %}
+{% extends 'base_dashboard.html.twig' %}
 {% block javascripts %}
 	{{ encore_entry_script_tags('app') }}
 {% endblock %}
 
-
 {% block content %}
-	<div class="container-fluid">
+	<h4 class="fw-bold py-3 mb-2 text-secondary text-opacity-85">
+		<span class="text-muted fw-light">/GH/</span>
+		Biometrico</h4>
+
+	<div
+		class="container-fluid bg-white shadow-sm p-3 mb-4 bg-body-tertiary rounded">
 		{# Formulario para cargar el archivo Excel #}
 		<form id="uploadForm" action="{{ path('app_biometric') }}" method="post" enctype="multipart/form-data" class="text-center">
 			<div class="mb-3 container pt-5">
-			<h4 class="h4 p-2">Procesar registros del Biometrico</h4>
-			<a href="#" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#helpModal"><i class="bi bi-question-circle-fill sm" style="color:#044AF7;"></i></a>
+				<h4 class="h4 p-2">Procesar registros del Biometrico</h4>
+				<a href="#" class="btn btn-light mb-1" data-bs-toggle="modal" data-bs-target="#helpModal">
+					<i class="bi bi-question-circle-fill sm" style="color:#044AF7;"></i>
+				</a>
 				<label for="excel_file" class="form-label text-leght">Seleccione un archivo Excel:</label>
 				<input type="file" name="excel_file" id="excel_file" class="form-control form-control-sm" required>
 			</div>
-			
-            {# Botón para enviar (inicialmente visible) #}
-            <button id="submitBtn" type="submit" class="btn btn-outline-success bottom-0">Cargar Excel</button>
-            {# Botón de loading (inicialmente oculto) #}
-            <button id="loadingBtn" class="btn btn-success" type="button" disabled style="display: none;">
-                <span class="spinner-grow spinner-grow-sm"></span>
-                Procesando..
-            </button>
-
+			{# Botón para enviar (inicialmente visible) #}
+			<button id="submitBtn" type="submit" class="btn btn-outline-success bottom-0">Cargar Excel</button>
+			{# Botón de loading (inicialmente oculto) #}
+			<button id="loadingBtn" class="btn btn-success" type="button" disabled style="display: none;">
+				<span class="spinner-grow spinner-grow-sm"></span>
+				Procesando..
+			</button>
 		</form>
-		<hr>
-
 	</div>
-	
+
 	{# Previsualización de los datos, si están presentes #}
 	{% if sheetData is defined %}
-		<h2 class="mt-5">Previsualización de Datos</h2>
-		{# Tabla con los datos del archivo Excel #}
-		<div class="table-responsive"> 
-		<table class="table table-striped mt-3">
-			<thead >
-				<tr>
-					{% for headers in header %}
-                    <th class=" text-center align-middle">      
-                            {{ headers }}
-                    </th>
-                {% endfor %}
-				</tr>
-			</thead>
-			<tbody>
-				{% for row in sheetData %}
-					<tr>
-						{% for key, cell in row %}
-						{# Verifica si es el campo 'holiday' y si es true #}
-							{% if key == 'holiday' and cell == true %}
-								<td class=" text-nowrap align-middle" style="background-color: red; color: white;">Día festivo</td>
-							{% else %}
-								<td contenteditable="true" class="text-nowrap align-middle text-center">{{ cell }}</td>
-							{% endif %}
-						{% endfor %}
-					</tr>
-				{% endfor %}
-			</tbody>
-		</table>
-		</div>
-		<br><br>
-		{# Botón para guardar los datos en la base de datos #}	
-		<div class="container">
-			<form id="updateForm" action="{{ path('app_import_biometrico')}}" method="post" class="position-fixed bottom-0 end-0 translate-middle-x mb-4">
-				<button id="submitBtnUpdate" type="submit" class="btn btn-success my-2">
-					<i class="bi bi-save"></i>
-				Guardar</button>
+		<div class="shadow-sm p-4 mb-5 bg-body-tertiary rounded">
 
-				<button id="loadingBtnUpdate" class="btn btn-success my-2" type="button" disabled style="display: none;">
-                <span class="spinner-grow spinner-grow-sm"></span>
-                Guardando..
-            	</button>
-			</form>
+			<h2 class="mt-2">Previsualización de Datos</h2>
+			{# Tabla con los datos del archivo Excel #}
+			<div class="table-responsive ">
+				<table class="table table-striped mt-3">
+					<thead>
+						<tr>
+							{% for headers in header %}
+								<th class=" text-center align-middle">
+									{{ headers }}
+								</th>
+							{% endfor %}
+						</tr>
+					</thead>
+					<tbody>
+						{% for row in sheetData %}
+							<tr>
+								{% for key, cell in row %}
+									{# Verifica si es el campo 'holiday' y si es true #}
+									{% if key == 'holiday' and cell == true %}
+										<td class=" text-nowrap align-middle" style="background-color: red; color: white;">Día festivo</td>
+									{% else %}
+										<td contenteditable="true" class="text-nowrap align-middle text-center">{{ cell }}</td>
+									{% endif %}
+								{% endfor %}
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+			{# Botón para guardar los datos en la base de datos #}
+			<div class="container">
+				<form id="updateForm" action="{{ path('app_import_biometrico')}}" method="post" class="position-fixed bottom-0 end-0 translate-middle-x mb-4">
+					<button id="submitBtnUpdate" type="submit" class="btn btn-success my-2">
+						<i class="bi bi-save"></i>
+						Guardar</button>
+
+					<button id="loadingBtnUpdate" class="btn btn-success my-2" type="button" disabled style="display: none;">
+						<span class="spinner-grow spinner-grow-sm"></span>
+						Guardando..
+					</button>
+				</form>
+			</div>
 		</div>
 	{% endif %}
 
 	{{ include('_message.html.twig') }}
-	        <!--se importa el modal -->
-        {% include 'components/_help_modal.html.twig' with {
+	<!--se importa el modal -->
+	{% include 'components/_help_modal.html.twig' with {
             title: 'Instrucciones para cargar el archivo Excel',
             content: '<p>Asegúrese de que el archivo Excel tenga el formato correcto...</p>
 					<ul>

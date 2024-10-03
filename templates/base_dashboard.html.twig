@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion Humana
+{% endblock %}
+
+{% block stylesheets %}
+	{{ encore_entry_link_tags('app') }}
+{% endblock %}
+
+{% block javascripts %}
+	{{ encore_entry_script_tags('app') }}
+{% endblock %}
+
+{% block body %}
+	<div class="container-fluid ps-0 min-vh-100 flex-grow-1 bg-secondary-subtle">
+		<div
+			class="row">
+			<!-- Botón para mostrar el sidebar en pantallas pequeñas -->
+			<button class="btn btn-dark d-md-none " type="button" data-bs-toggle="collapse" data-bs-target="#sidebar" aria-controls="sidebar" aria-expanded="false" aria-label="Toggle sidebar">
+				<i class="bi bi-list"></i>
+			</button>
+			{{ include('human_resources/_menu_hr.html.twig') }}
+		</div>
+		<!-- Main content area -->
+		<main
+			class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+			<!-- /Under Maintenance -->
+			{% block content %}
+			
+			{% endblock %}
+			<!-- Pie de página -->
+			{{ include('layout/_footer.html.twig') }}
+		</main>
+
+	{% endblock %}

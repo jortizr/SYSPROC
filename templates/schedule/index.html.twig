@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'base_dashboard.html.twig' %}
 
 {% block title %}Gestion Humana
 {% endblock %}
@@ -11,21 +11,6 @@
 	{{ encore_entry_script_tags('app') }}
 {% endblock %}
 
-{% block body %}
-	<div class="container-fluid ps-0">
-		<div class="row">
-			<div class="col-sm-2 position-fixed">
-			{{ include('human_resources/_menu_hr.html.twig') }}
-			</div>
-			<div class="col-sm-2"></div>
-			<!-- Bloque para el contenido dinámico -->
-			<div class="col-sm" style="overflow:auto;">
-                {{ include('layout/_nav_crud.html.twig') }}
-                <h1> Menu </h1>
-				{% block content %}
-                
-                {% endblock %}
-			</div>
-		</div>
-	</div>
+{% block content %}
+		<h1> Horarios</h1>
 {% endblock %}

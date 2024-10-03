@@ -1,0 +1,30 @@
+{% extends 'base_dashboard.html.twig' %}
+
+{% block title %}Horarios{% endblock %}
+
+{% block stylesheets %}
+	{{ encore_entry_link_tags('app') }}
+{% endblock %}
+
+{% block javascripts %}
+	{{ encore_entry_script_tags('app') }}
+{% endblock %}
+
+{% block content %}
+	<div class="container-xxl flex-grow-1 container-p-y">
+		 {{ include('layout/_label_route.html.twig', {route: '/GH/' , label: 'Horarios'}) }}
+		<div class="row">
+			<div class="col-xxl">
+				<div class="card mb-4 h-100 shadow-sm p-3 mb-4 bg-body-tertiary rounded">
+						<div class="card-header d-flex align-items-center mt-1 justify-content-between bg-transparent">
+						<h5 class="mb-2">Crea un nuevo turno</h5>
+						</div>
+						{{ form_errors(form) }}
+						<div class="card-body text-center">
+							{{form(form)}}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	{% endblock %}

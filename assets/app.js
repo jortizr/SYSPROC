@@ -10,4 +10,4 @@ import './styles/app.css';
 import './js/formLoader';
 import './js/alerts';
 import './styles/customs.scss';
-
+import './scss/_buttons.scss';

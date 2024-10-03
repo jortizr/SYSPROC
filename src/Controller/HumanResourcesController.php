@@ -134,12 +134,6 @@ class HumanResourcesController extends AbstractController
         return $this->render('human_resources/human_resource.html.twig');
     }
 
-    #[Route('/HR/new-schedule', name: 'app_schedule')]
-    public function getSchedule(): Response
-    {
-        return $this->render('human_resources/_schedule.html.twig');
-    }
-
     #[Route('/HR/employees', name: 'app_employees')]
     public function getEmployee(): Response
     {

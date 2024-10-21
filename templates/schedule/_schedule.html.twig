@@ -15,27 +15,16 @@
 		 {{ include('layout/_label_route.html.twig', {route: '/GH/' , label: 'Horarios'}) }}
 		<div class="row">
 			<div class="col-xxl">
-						<ul class="nav nav-pills flex-column flex-md-row mb-3 ">
-							<li class="nav-item">
-								<a class="nav-link active" href="#"><i class="bx bx-user me-1"></i> Account</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link" href="pages-account-settings-notifications.html"><i class="bx bx-bell me-1"></i> Notifications</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link" href="pages-account-settings-connections.html"><i class="bx bx-link-alt me-1"></i> Connections</a>
-							</li>
-						</ul>
-				<div class="card mb-4 h-100 shadow-sm p-3 mb-4 bg-body-tertiary rounded">
-						<div class="card-header d-flex align-items-center mt-1 justify-content-between bg-transparent">
-						<h5 class="mb-2">Crea un nuevo turno</h5>
-						</div>
-						{{ form_errors(form) }}
-						<div class="card-body text-center">
-							{{form(form)}}
-						</div>
-					</div>
-				</div>
+				<ul class="nav nav-pills flex-column flex-md-row mb-3 ">
+					{{ include('Components/_item_nav_bar.html.twig',{route:'app_schedule', icon:'bi bi-list-stars', text: 'Lista horarios' } ) }}
+					{{ include('Components/_item_nav_bar.html.twig',{route:'app_schedule_add', icon:'bi bi-plus-circle-fill', text: 'Agregar horario' } ) }}
+				</ul>
+
+
+			{% block subcontent %}
+
+			{% endblock %}
 			</div>
 		</div>
+	</div>
 	{% endblock %}

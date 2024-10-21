@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ScheduleRepository::class)]
 class Schedule
@@ -20,15 +21,17 @@ class Schedule
     private ?string $name = null;
 
     #[ORM\Column(type: Types::TIME_MUTABLE)]
+    #[Assert\NotBlank]
     private ?\DateTimeInterface $time_start = null;
 
     #[ORM\Column(type: Types::TIME_MUTABLE)]
+    #[Assert\NotBlank]
     private ?\DateTimeInterface $time_end = null;
 
-    #[ORM\Column(type: Types::TIME_MUTABLE)]
+    #[ORM\Column(type: Types::TIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $time_2_start = null;
 
-    #[ORM\Column(type: Types::TIME_MUTABLE)]
+    #[ORM\Column(type: Types::TIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $time_2_end = null;
 
     /**
@@ -37,8 +40,22 @@ class Schedule
     #[ORM\OneToMany(targetEntity: Employee::class, mappedBy: 'Id_schedule', orphanRemoval: true)]
     private Collection $employees;
 
+    #[ORM\Column(type: Types::TIME_MUTABLE)]
+    #[Assert\NotBlank]
+    private ?\DateTimeInterface $weekend_time_start = null;
+
+    #[ORM\Column(type: Types::TIME_MUTABLE)]
+    #[Assert\NotBlank]
+    private ?\DateTimeInterface $weekend_time_end = null;
+
+    #[ORM\Column(type: Types::TIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $weekend_time_2_start = null;
+
+    #[ORM\Column(type: Types::TIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $weekend_time_2_end = null;
+
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $date = null;
+    private ?\DateTimeInterface $mod_date = null;
 
     public function __construct()
     {
@@ -91,7 +108,7 @@ class Schedule
         return $this->time_2_start;
     }
 
-    public function setTime2Start(\DateTimeInterface $time_2_start): static
+    public function setTime2Start(?\DateTimeInterface $time_2_start): static
     {
         $this->time_2_start = $time_2_start;
 
@@ -103,7 +120,7 @@ class Schedule
         return $this->time_2_end;
     }
 
-    public function setTime2End(\DateTimeInterface $time_2_end): static
+    public function setTime2End(?\DateTimeInterface $time_2_end): static
     {
         $this->time_2_end = $time_2_end;
 
@@ -145,15 +162,64 @@ class Schedule
         return $this->name;
     }
 
-    public function getDate(): ?\DateTimeInterface
+    public function getWeekendTimeStart(): ?\DateTimeInterface
     {
-        return $this->date;
+        return $this->weekend_time_start;
     }
 
-    public function setDate(\DateTimeInterface $date): static
+    public function setWeekendTimeStart(\DateTimeInterface $weekend_time_start): static
     {
-        $this->date = $date;
+        $this->weekend_time_start = $weekend_time_start;
 
         return $this;
     }
+
+    public function getWeekendTimeEnd(): ?\DateTimeInterface
+    {
+        return $this->weekend_time_end;
+    }
+
+    public function setWeekendTimeEnd(\DateTimeInterface $weekend_time_end): static
+    {
+        $this->weekend_time_end = $weekend_time_end;
+
+        return $this;
+    }
+
+    public function getWeekendTime2Start(): ?\DateTimeInterface
+    {
+        return $this->weekend_time_2_start;
+    }
+
+    public function setWeekendTime2Start(?\DateTimeInterface $weekend_time_2_start): static
+    {
+        $this->weekend_time_2_start = $weekend_time_2_start;
+
+        return $this;
+    }
+
+    public function getWeekendTime2End(): ?\DateTimeInterface
+    {
+        return $this->weekend_time_2_end;
+    }
+
+    public function setWeekendTime2End(?\DateTimeInterface $weekend_time_2_end): static
+    {
+        $this->weekend_time_2_end = $weekend_time_2_end;
+
+        return $this;
+    }
+
+    public function getModDate(): ?\DateTimeInterface
+    {
+        return $this->mod_date;
+    }
+
+    public function setModDate(): static
+    {
+        $this->mod_date = new \DateTime();
+
+        return $this;
+    }
+
 }

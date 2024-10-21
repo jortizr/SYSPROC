@@ -8,6 +8,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
+use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 
 class ScheduleCrudController extends AbstractCrudController
 {
@@ -32,6 +33,7 @@ class ScheduleCrudController extends AbstractCrudController
             TimeField::new('time_end', 'Hora de salida'),
             TimeField::new('time_2_start', 'Hora de ingreso 2'),
             TimeField::new('time_2_end', 'Hora de salida 2'),
+            
         ];
     }
     

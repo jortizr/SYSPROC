@@ -1,0 +1,9 @@
+<li class="nav-item">
+	<a href="{{ path(route) }}" 
+        class="nav-link {% if app.request.attributes.get('_route') == route %} 
+        active
+		{% endif %}">
+		<i class="{{ icon }}"></i>
+		{{ text }}</a>
+</li>
+

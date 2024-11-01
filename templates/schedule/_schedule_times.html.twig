@@ -1,0 +1,66 @@
+<div class="col">
+	<div class="card w-auto mb-4 h-auto shadow-sm p-3 mb-4 bg-body-tertiary rounded" style="z-index: 1;">
+		<div class="card-body w-100">
+			<div class="position-relative mb-3">
+				<h5 class="card-title text-center">{{schedule.name}}</h5>
+				<button class="btn btn-outline-danger position-absolute top-0 end-0" style="font-size: 0.8rem;"
+					data-bs-toggle="modal" data-bs-target="#deleteModal-{{ schedule.id }}">
+					<i class="bi bi-trash"></i>
+				</button>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<p>
+						<strong>Entrada:</strong>
+						{{ schedule.getTimeStart ? schedule.getTimeStart|date('h:i a') : 'N/A' }}</p>
+				</div>
+				<div class="col-md-6">
+					<p>
+						<strong>Salida:</strong>
+						{{schedule.getTimeEnd ? schedule.getTimeEnd|date('h:i a') : 'N/A' }}</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<p>
+						<strong>Entrada 2:</strong>
+						{{schedule.getTime2Start ? schedule.getTime2Start|date('h:i a') : 'N/A' }}</p>
+				</div>
+				<div class="col-md-6">
+					<p>
+						<strong>Salida 2:</strong>
+						{{schedule.getTime2End ? schedule.getTime2End|date('h:i a') : 'N/A' }}</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<p>
+						<strong>Entrada sab/dom:</strong>
+						{{schedule.getWeekendTimeStart ? schedule.getWeekendTimeStart|date('h:i a') : 'N/A' }}</p>
+				</div>
+				<div class="col-md-6">
+					<p>
+						<strong>Salida sab/dom:</strong>
+						{{schedule.getWeekendTimeEnd ? schedule.getWeekendTimeEnd|date('h:i a') : 'N/A' }}</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<p>
+						<strong>Entrada 2 sab/dom:</strong>
+						{{schedule.getWeekendTime2Start ? schedule.getWeekendTime2Start|date('h:i a') : 'N/A' }}</p>
+				</div>
+				<div class="col-md-6">
+					<p>
+						<strong>Salida 2 sab/dom:</strong>
+						{{schedule.getWeekendTime2End ? schedule.getWeekendTime2End|date('h:i a') : 'N/A' }}</p>
+				</div>
+			</div>
+		</div>
+		<div class="text-start">
+			<p class="text-muted">
+				<strong>Fecha creacion:</strong>
+				{{ schedule.ModDate ? schedule.ModDate|date('Y-m-d H:i') : 'N/A' }}</p>
+		</div>
+	</div>
+</div>

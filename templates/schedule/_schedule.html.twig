@@ -19,12 +19,11 @@
 					{{ include('Components/_item_nav_bar.html.twig',{route:'app_schedule', icon:'bi bi-list-stars', text: 'Lista horarios' } ) }}
 					{{ include('Components/_item_nav_bar.html.twig',{route:'app_schedule_add', icon:'bi bi-plus-circle-fill', text: 'Agregar horario' } ) }}
 				</ul>
-
-
 			{% block subcontent %}
 
 			{% endblock %}
 			</div>
 		</div>
 	</div>
-	{% endblock %}
+	{{ include('_message.html.twig') }}
+{% endblock %}

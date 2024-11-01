@@ -13,71 +13,17 @@
 
 
 {% block subcontent %}
+
 	{% if listSchedules %}
 		<div class="row row-cols-1 row-cols-md-2 g-4">
 			{% for schedule in listSchedules %}
-				<div class="col">
-					<div class="card w-auto mb-4 h-auto shadow-sm p-3 mb-4 bg-body-tertiary rounded">
-						<div class="card-body w-100">
-							<h5 class="card-title text-center">{{schedule.name}}</h5>
-							<div class="row">
-								<div class="col-md-6">
-									<p>
-										<strong>Entrada:</strong>
-										{{ schedule.getTimeStart() ? schedule.getTimeStart()|date('h:i a') : 'N/A' }}</p>
-								</div>
-								<div class="col-md-6">
-									<p>
-										<strong>Salida:</strong>
-										{{schedule.getTimeEnd() ? schedule.getTimeEnd()|date('h:i a') : 'N/A' }}</p>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-md-6">
-									<p>
-										<strong>Entrada 2:</strong>
-										{{schedule.getTime2Start() ? schedule.getTime2Start()|date('h:i a') : 'N/A' }}</p>
-								</div>
-								<div class="col-md-6">
-									<p>
-										<strong>Salida 2:</strong>
-										{{schedule.getTime2End() ? schedule.getTime2End()|date('h:i a') : 'N/A' }}</p>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-md-6">
-									<p>
-										<strong>Entrada sab/dom:</strong>
-										{{schedule.getWeekendTimeStart() ? schedule.getWeekendTimeStart()|date('h:i a') : 'N/A' }}</p>
-								</div>
-								<div class="col-md-6">
-									<p>
-										<strong>Salida sab/dom:</strong>
-										{{schedule.getWeekendTimeEnd() ? schedule.getWeekendTimeEnd()|date('h:i a') : 'N/A' }}</p>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-md-6">
-									<p>
-										<strong>Entrada 2 sab/dom:</strong>
-										{{schedule.getWeekendTime2Start() ? schedule.getWeekendTime2Start()|date('h:i a') : 'N/A' }}</p>
-								</div>
-								<div class="col-md-6">
-									<p>
-										<strong>Salida 2 sab/dom:</strong>
-										{{schedule.getWeekendTime2End() ? schedule.getWeekendTime2End()|date('h:i a') : 'N/A' }}</p>
-								</div>
-							</div>
-						</div>
-                        <div class="text-start">
-                            <p class="text-muted">
-							<strong>Fecha creacion:</strong>
-							{{ schedule.ModDate ? schedule.ModDate()|date('Y-m-d H:i') : 'N/A' }}</p>
-                        </div>
-					</div>
-				</div>
+				{# componente de horarios #}
+				{{ include('schedule/_schedule_times.html.twig', {schedule: schedule })}}
+				{{ include('Components/_delete_modal.html.twig', 
+				{message: 'Deseas eliminar este horario'}) }}
 			{% endfor %}
 		</div>
+		
 	{% else %}
 		<div class="container-xxl container-p-y d-flex align-items-center justify-content-center vh-auto pt-2 shadow-sm p-3 mb-5 bg-body-tertiary rounded">
 			<div class="misc-wrapper text-center ">
@@ -87,6 +33,6 @@
 			</div>
 		</div>
 	{% endif %}
-
-
+	
 {% endblock %}
+

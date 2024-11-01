@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20240822164649 extends AbstractMigration
+final class Version20241101213750 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -20,13 +20,14 @@ final class Version20240822164649 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('CREATE TABLE biometric (id INT AUTO_INCREMENT NOT NULL, company VARCHAR(20) NOT NULL, name VARCHAR(50) DEFAULT NULL, cod_nomina VARCHAR(10) NOT NULL, cc INT DEFAULT NULL, date DATETIME NOT NULL, in_hour TIME DEFAULT NULL, out_hour TIME DEFAULT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4');
+        $this->addSql('CREATE TABLE biometric (id INT AUTO_INCREMENT NOT NULL, company VARCHAR(20) NOT NULL, name VARCHAR(50) DEFAULT NULL, cod_nomina VARCHAR(10) NOT NULL, cc INT DEFAULT NULL, date DATE NOT NULL, in_hour TIME DEFAULT NULL, out_hour TIME DEFAULT NULL, in_hour_2 TIME DEFAULT NULL, out_hour_2 TIME DEFAULT NULL, in_hour_3 TIME DEFAULT NULL, out_hour_3 TIME DEFAULT NULL, holiday TINYINT(1) DEFAULT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4');
         $this->addSql('CREATE TABLE employee (id VARCHAR(7) NOT NULL, name VARCHAR(90) NOT NULL, cc INT NOT NULL, id_state_id INT NOT NULL, cod_job_title_id INT NOT NULL, id_schedule_id INT NOT NULL, INDEX IDX_5D9F75A15503D054 (id_state_id), INDEX IDX_5D9F75A14702F281 (cod_job_title_id), INDEX IDX_5D9F75A1BC190F22 (id_schedule_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4');
         $this->addSql('CREATE TABLE job_title (id INT AUTO_INCREMENT NOT NULL, name VARCHAR(45) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4');
-        $this->addSql('CREATE TABLE nomina (id INT AUTO_INCREMENT NOT NULL, date DATE NOT NULL, fortnight SMALLINT NOT NULL, amount DOUBLE PRECISION NOT NULL, type_hour_id INT NOT NULL, id_employee_id VARCHAR(7) NOT NULL, INDEX IDX_D7DFE7839DB2140C (type_hour_id), INDEX IDX_D7DFE78394113CAB (id_employee_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4');
-        $this->addSql('CREATE TABLE schedule (id INT AUTO_INCREMENT NOT NULL, name VARCHAR(30) NOT NULL, time_start TIME NOT NULL, time_end TIME NOT NULL, time_2_start TIME NOT NULL, time_2_end TIME NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4');
+        $this->addSql('CREATE TABLE nomina (id INT AUTO_INCREMENT NOT NULL, fortnight SMALLINT NOT NULL, amount DOUBLE PRECISION NOT NULL, date_start DATE NOT NULL, date_end DATE NOT NULL, type_hour_id INT NOT NULL, id_employee_id VARCHAR(7) NOT NULL, INDEX IDX_D7DFE7839DB2140C (type_hour_id), INDEX IDX_D7DFE78394113CAB (id_employee_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4');
+        $this->addSql('CREATE TABLE schedule (id INT AUTO_INCREMENT NOT NULL, name VARCHAR(30) NOT NULL, time_start TIME NOT NULL, time_end TIME NOT NULL, time_2_start TIME DEFAULT NULL, time_2_end TIME DEFAULT NULL, weekend_time_start TIME NOT NULL, weekend_time_end TIME NOT NULL, weekend_time_2_start TIME DEFAULT NULL, weekend_time_2_end TIME DEFAULT NULL, mod_date DATETIME NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4');
         $this->addSql('CREATE TABLE state (id INT AUTO_INCREMENT NOT NULL, name_state VARCHAR(30) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4');
         $this->addSql('CREATE TABLE type_hour (id INT AUTO_INCREMENT NOT NULL, name_hrs VARCHAR(80) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4');
+        $this->addSql('CREATE TABLE user (id INT AUTO_INCREMENT NOT NULL, username VARCHAR(180) NOT NULL, roles JSON NOT NULL, password VARCHAR(255) NOT NULL, fullname VARCHAR(100) NOT NULL, UNIQUE INDEX UNIQ_IDENTIFIER_USERNAME (username), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4');
         $this->addSql('ALTER TABLE employee ADD CONSTRAINT FK_5D9F75A15503D054 FOREIGN KEY (id_state_id) REFERENCES state (id)');
         $this->addSql('ALTER TABLE employee ADD CONSTRAINT FK_5D9F75A14702F281 FOREIGN KEY (cod_job_title_id) REFERENCES job_title (id)');
         $this->addSql('ALTER TABLE employee ADD CONSTRAINT FK_5D9F75A1BC190F22 FOREIGN KEY (id_schedule_id) REFERENCES schedule (id)');
@@ -49,5 +50,6 @@ final class Version20240822164649 extends AbstractMigration
         $this->addSql('DROP TABLE schedule');
         $this->addSql('DROP TABLE state');
         $this->addSql('DROP TABLE type_hour');
+        $this->addSql('DROP TABLE user');
     }
 }

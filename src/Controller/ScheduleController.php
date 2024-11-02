@@ -51,21 +51,21 @@ class ScheduleController extends AbstractController
     }
 
     #[Route('/HR/schedule/delete/{id}', name: 'app_schedule_delete', methods: ['POST'])]
-    public function delete(int $id, ScheduleRepository $scheduleRepository, Request $request, CsrfTokenManagerInterface $csrfTokenManager): RedirectResponse
+    public function delete(Schedule $schedule, ScheduleRepository $scheduleRepository, Request $request, CsrfTokenManagerInterface $csrfTokenManager, int $id): RedirectResponse
     {
-        dd('entro a la ruta el id', $id);
+       
         //verificar el  token CSRF
         $submittedToken = $request->request->get('_token');
         if(!$csrfTokenManager->isTokenValid(new CsrfToken('app_schedule_delete', $submittedToken))){
             throw $this->createAccessDeniedException('Token CSRF invalido');
         }
-
+        dd('estoy aqui en el controlador', $submittedToken);
         //buscar el horario a eliminar
-        $schedule = $scheduleRepository->findOneBy([$id]);
+        // $scheduleFind = "";
         
-        if(!$schedule){
-            throw $this->createNotFoundException('no se encontro el horario');
-        }
+        // if(!$scheduleFind){
+        //     throw $this->createNotFoundException('no se encontro el horario');
+        // }
         $this->addFlash('success', 'Se ha eliminado correctamente ');
         return $this->redirectToRoute('app_schedule');
     }

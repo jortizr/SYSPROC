@@ -12,16 +12,10 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class ScheduleRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry, EntityManagerInterface $entityManager)
+    public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Schedule::class);
-        
     }
-
-    public function deleteSchedule($idSchedule)  {
-        // $this->entityManager->remove($idSchedule);
-    }
-
     //    /**
     //     * @return Schedule[] Returns an array of Schedule objects
     //     */

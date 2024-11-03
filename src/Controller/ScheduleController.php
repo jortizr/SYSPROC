@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Schedule;
+use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\Wizard\Expression;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -11,8 +12,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Form\ScheduleType;
 use App\Repository\ScheduleRepository;
+use PhpParser\Node\Expr\Cast\String_;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Symfony\Component\Security\Csrf\CsrfToken;
+use Symfony\Component\Security\Http\Attribute\IsCsrfTokenValid;
 
 class ScheduleController extends AbstractController
 {
@@ -51,22 +54,28 @@ class ScheduleController extends AbstractController
     }
 
     #[Route('/HR/schedule/delete/{id}', name: 'app_schedule_delete', methods: ['POST'])]
-    public function delete(Schedule $schedule, ScheduleRepository $scheduleRepository, Request $request, CsrfTokenManagerInterface $csrfTokenManager, int $id): RedirectResponse
+    public function delete(EntityManagerInterface $entityManager, ScheduleRepository $scheduleRepository, Request $request, CsrfTokenManagerInterface $csrfTokenManager, int $id): RedirectResponse
     {
        
         //verificar el  token CSRF
-        $submittedToken = $request->request->get('_token');
-        if(!$csrfTokenManager->isTokenValid(new CsrfToken('app_schedule_delete', $submittedToken))){
-            throw $this->createAccessDeniedException('Token CSRF invalido');
+        $submittedToken = $request->getPayload()->get('token');
+        //validacion del token
+        if(!$this->isCsrfTokenValid('delete-item', $submittedToken)){
+            $this->addFlash('error', 'Token CSRF invalido. No se completo tu solicitud');
+            return $this->redirectToRoute('app_schedule');
         }
-        dd('estoy aqui en el controlador', $submittedToken);
         //buscar el horario a eliminar
-        // $scheduleFind = "";
-        
-        // if(!$scheduleFind){
-        //     throw $this->createNotFoundException('no se encontro el horario');
-        // }
-        $this->addFlash('success', 'Se ha eliminado correctamente ');
+        $schedule = $scheduleRepository->find($id);
+        //validar si existe el horario
+        if(!$schedule){
+            $this->addFlash('error', 'No se encontró el horario.');
+            return $this->redirectToRoute('app_schedule');
+        }
+        //eliminar el horario con la funcion predeterminada de doctrine preparada
+        $entityManager->remove($schedule);
+        $entityManager->flush();
+
+        $this->addFlash('success', 'Se ha eliminado correctamente');
         return $this->redirectToRoute('app_schedule');
     }
 

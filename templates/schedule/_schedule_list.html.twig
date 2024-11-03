@@ -20,7 +20,6 @@
 				{# componente de horarios #}
 				{{ include('schedule/_schedule_times.html.twig', {schedule: schedule })}}
 				{{ include('Components/_delete_modal.html.twig', {
-					itemId: schedule.id,
 					message:'horario',
 					actionPath: path('app_schedule_delete', {id: schedule.id})
 				})}}

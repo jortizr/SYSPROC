@@ -1,0 +1,28 @@
+{% extends 'schedule/_schedule.html.twig' %}
+
+{% block title %}Lista de horarios{% endblock %}
+
+{% block stylesheets %}
+	{{ encore_entry_link_tags('app') }}
+{% endblock %}
+
+{% block javascripts %}
+	{{ encore_entry_script_tags('app') }}
+{% endblock %}
+
+
+{% block subcontent %}
+<div class="d-flex justify-content-center align-items-center vh-auto">
+    <div class="card mb-4 h-auto shadow-sm p-3 mb-4 bg-body-tertiary rounded">
+        <div class="card-header d-flex align-items-center mt-1 justify-content-between bg-transparent">
+            <h5 class="mb-2">Editar el turno</h5>
+        </div>
+        {{ form_errors(form) }}
+        <div class="card-body text-center">
+            {{ form(form) }}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+

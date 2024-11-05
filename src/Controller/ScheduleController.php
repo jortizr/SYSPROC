@@ -19,6 +19,14 @@ use Symfony\Component\Security\Http\Attribute\IsCsrfTokenValid;
 
 class ScheduleController extends AbstractController
 {
+    private $entityManager;
+    private $scheduleRepo;
+
+    function __construct(EntityManagerInterface $entityManager, ScheduleRepository $scheduleRepo){
+        $this->entityManager = $entityManager;
+        $this->scheduleRepo = $scheduleRepo;
+    }
+
     #[Route('/HR/schedule', name: 'app_schedule')]
     public function schedule(EntityManagerInterface $entityManager): Response
     {
@@ -77,6 +85,35 @@ class ScheduleController extends AbstractController
 
         $this->addFlash('success', 'Se ha eliminado correctamente');
         return $this->redirectToRoute('app_schedule');
+    }
+
+    #[Route('/HR/schedule/edit/{id}', name: 'app_schedule_edit', methods:['POST'])]
+    public function scheduleEdit(int $id, Request $request): Response
+    {  
+        //cargar el objeto
+        $schedule = $this->scheduleRepo->find($id);
+        
+        if(!$schedule){
+            $this->addFlash('error', 'El horario no existe.');
+        }
+
+        //creacion del formulario y pasar el objeto con los datos
+        $form = $this->createForm(ScheduleType::class, $schedule);
+        $form->handleRequest($request);
+        
+        //valida si el formulario es valido
+        if($form->isSubmitted() && $form->isValid()){
+            //guardar los cambios
+            $this->entityManager->flush();
+
+            $this->addFlash('sucess', 'Horario actualizado');
+            return $this->redirectToRoute('app_schedule');
+        }
+
+        return $this->render('schedule/_schedule_edit.html.twig', [
+            'form' => $form->createView(),
+            'schedule' => $schedule
+        ]);
     }
 
 

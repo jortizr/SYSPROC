@@ -3,10 +3,24 @@
 		<div class="card-body w-100">
 			<div class="position-relative mb-3">
 				<h5 class="card-title text-center">{{schedule.name}}</h5>
-				<button class="btn btn-outline-danger position-absolute top-0 end-0" style="font-size: 0.8rem;"
-					data-bs-toggle="modal" data-bs-target="#deleteModal-{{ schedule.id }}">
-					<i class="bi bi-trash"></i>
-				</button>
+
+				<div
+					class="position-absolute top-0 end-0 d-flex gap-1">
+					<!-- Botón de editar -->
+					<form action="{{ path('app_schedule_edit', { id: schedule.id}) }}" method="post">
+                    	<input type="hidden" name="token" value="{{ csrf_token('update-item') }}">
+						<button class="btn btn-outline-secondary">
+							<i class="bi bi-pencil-square"></i>
+						</button>
+                	</form>
+					<!-- Botón de eliminar -->
+				{# boton de eliminar el cual activa el modal de confirmacion y como parametro le pasa el id del schedule
+				a traves de data-bs-toggle llama al modal con el id y data-bs-target pasa el parametro al modal #}
+				<!-- Contenedor para agrupar los botones -->
+					<button class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteModal-{{ schedule.id }}">
+						<i class="bi bi-trash"></i>
+					</button>
+				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-6">

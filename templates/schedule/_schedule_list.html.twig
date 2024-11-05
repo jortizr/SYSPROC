@@ -19,6 +19,7 @@
 			{% for schedule in listSchedules %}
 				{# componente de horarios #}
 				{{ include('schedule/_schedule_times.html.twig', {schedule: schedule })}}
+				{# Componente del modal de confirmacion #}
 				{{ include('Components/_delete_modal.html.twig', {
 					message:'horario',
 					actionPath: path('app_schedule_delete', {id: schedule.id})
@@ -27,6 +28,7 @@
 		</div>
 		
 	{% else %}
+	{# imagen informativa si no hay datos para visualizar #}
 		<div class="container-xxl container-p-y d-flex align-items-center justify-content-center vh-auto pt-2 shadow-sm p-3 mb-5 bg-body-tertiary rounded">
 			<div class="misc-wrapper text-center ">
 				<div class="container mt-2">

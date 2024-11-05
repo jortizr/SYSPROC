@@ -60,6 +60,9 @@ class ScheduleType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Schedule::class,
+            'csrf_protection' => true,
+            'csrf_field_name' => '_token',
+            'csrf_token_id' => 'add_schedule'
         ]);
     }
 }

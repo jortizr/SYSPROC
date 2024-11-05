@@ -40,6 +40,12 @@ class ScheduleController extends AbstractController
     #[Route('/HR/schedule_new', name: 'app_schedule_add')]
     public function addSchedule(EntityManagerInterface $entityManager, Request $request): Response
     {
+        $submittedToken = $request->getPayload()->get('token');
+        if(!$this->isCsrfTokenValid('add_schedule', $submittedToken)){
+            $this->addFlash('error', 'Token CSRF invalido. No se completo tu solicitud');
+            return $this->redirectToRoute('app_schedule_add');
+        }
+
         //creamos el formulario que apunta a la clase ScheduleType
         $form = $this->createForm(ScheduleType::class);
         //manejamos la peticion
@@ -100,7 +106,7 @@ class ScheduleController extends AbstractController
         //creacion del formulario y pasar el objeto con los datos
         $form = $this->createForm(ScheduleType::class, $schedule);
         $form->handleRequest($request);
-        
+
         //valida si el formulario es valido
         if($form->isSubmitted() && $form->isValid()){
             //guardar los cambios

@@ -1,0 +1,27 @@
+{% extends 'base_dashboard.html.twig' %}
+
+{% block stylesheets %}
+	{{ encore_entry_link_tags('app') }}
+{% endblock %}
+
+{% block javascripts %}
+	{{ encore_entry_script_tags('app') }}
+{% endblock %}
+
+{% block content %}
+	<div class="container-xxl flex-grow-1 container-p-y">
+		 {{ include('Components/_label_route.html.twig', {path, label}) }}
+		<div class="row">
+			<div class="col-xxl">
+				<ul class="nav nav-pills flex-column flex-md-row mb-3 ">
+					{% block itemsNav %}
+                    {% endblock %}
+				</ul>
+			{% block subcontent %}
+
+			{% endblock %}
+			</div>
+		</div>
+	</div>
+	{{ include('_message.html.twig') }}
+{% endblock %}

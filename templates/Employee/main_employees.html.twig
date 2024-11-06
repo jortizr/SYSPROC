@@ -1,0 +1,18 @@
+{% extends 'layout/_main_content.html.twig' %}
+
+{% block title %}Hello EmployeeController!{% endblock %}
+
+{% set path='/HR/' %}
+{% set label='Colaboradores' %}
+
+
+{% block itemNav %}
+    {{ include('Components/_item_nav_bar.html.twig', {route: 'app_employees', icon:'', text:'Lista colaboradores'}) }}
+    {{ include('Components/_item_nav_bar.html.twig', {route: 'add_employee', icon:'', text:'Agregar colaborador'}) }}
+{% endblock %}
+
+
+{% block subcontent %}
+
+
+{% endblock %}

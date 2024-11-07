@@ -6,13 +6,11 @@
 {% set label='Colaboradores' %}
 
 
-{% block itemNav %}
-    {{ include('Components/_item_nav_bar.html.twig', {route: 'app_employees', icon:'', text:'Lista colaboradores'}) }}
-    {{ include('Components/_item_nav_bar.html.twig', {route: 'add_employee', icon:'', text:'Agregar colaborador'}) }}
-{% endblock %}
-
-
+{% set itemsNav = [
+    {route: 'app_employees', icon:'bi bi-list-stars', text:'Lista colaboradores'},
+    {route: 'add_employees', icon:'bi bi-plus-circle-fill', text:'Agregar colaborador'} 
+] %}
 {% block subcontent %}
 
-
+<h1>colaboradores 3</h1>
 {% endblock %}

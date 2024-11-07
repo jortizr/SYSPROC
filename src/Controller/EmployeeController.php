@@ -13,4 +13,13 @@ class EmployeeController extends AbstractController
     {
         return $this->render('employee/main_employees.html.twig');
     }
+
+    #[Route('HR/employees/add', name: 'add_employees')]
+    public function newEmployee(): Response
+    {
+        return $this->render('employee/_add_employee.html.twig');
+    }
+
+
+
 }

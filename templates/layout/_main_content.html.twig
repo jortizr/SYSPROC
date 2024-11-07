@@ -14,8 +14,9 @@
 		<div class="row">
 			<div class="col-xxl">
 				<ul class="nav nav-pills flex-column flex-md-row mb-3 ">
-					{% block itemsNav %}
-                    {% endblock %}
+					{% for item in itemsNav %}
+						{{ include('Components/_item_nav_bar.html.twig', item) }}
+                    {% endfor %}
 				</ul>
 			{% block subcontent %}
 

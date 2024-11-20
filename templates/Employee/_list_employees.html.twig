@@ -6,34 +6,32 @@
 		<div class="container">
 			<div class="table-responsive m-2">
 				<table class="table caption-top table-striped">
-					<caption>List of users</caption>
+					<caption>Colaboradores activos</caption>
+					
 					<thead class="table-light">
 						<tr>
-							<th scope="col">#</th>
-							<th scope="col">First</th>
-							<th scope="col">Last</th>
-							<th scope="col">Handle</th>
+							{% for header in headers %}
+								<th scope="col">{{ header }}</th>
+							{% endfor %}
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<th scope="row">1</th>
-							<td>Mark</td>
-							<td>Otto</td>
-							<td>@mdo</td>
-						</tr>
-						<tr>
-							<th scope="row">2</th>
-							<td>Jacob</td>
-							<td>Thornton</td>
-							<td>@fat</td>
-						</tr>
-						<tr>
-							<th scope="row">3</th>
-							<td>Larry</td>
-							<td>the Bird</td>
-							<td>@twitter</td>
-						</tr>
+						{% for employee in listEmployees %}
+							<tr>
+								<th scope="row">{{ employee.id }}</th>
+								<td>{{ employee.name }}</td>
+								<td>{{ employee.cc }}</td>
+								<td>{{ employee.getIDState.getNameState ?: 'N/A' }}</td>
+								<td>{{ employee.getCodJobTitle.getName ?: 'N/A' }}</td>
+								<td>
+									{% if employee.getIdSchedule is not empty %}
+										{{ employee.getIdSchedule.name ?: 'sin horario' }}
+									{% else %}
+										Sin horario asignado
+									{% endif %}
+								</td>
+							</tr>
+						{% endfor %}
 					</tbody>
 				</table>
 			</div>

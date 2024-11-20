@@ -11,7 +11,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Form\ScheduleType;
 use App\Repository\ScheduleRepository;
-use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 
 class ScheduleController extends AbstractController
 {
@@ -24,9 +23,9 @@ class ScheduleController extends AbstractController
     }
 
     #[Route('/HR/schedule', name: 'app_schedule')]
-    public function schedule(EntityManagerInterface $entityManager): Response
+    public function schedule(): Response
     {
-        $listSchedules = $entityManager->getRepository(Schedule::class)->findAll();
+        $listSchedules = $this->entityManager->getRepository(Schedule::class)->findAll();
 
         return $this->render('schedule/_schedule_list.html.twig',[
             'listSchedules' =>$listSchedules
@@ -34,7 +33,7 @@ class ScheduleController extends AbstractController
     }
 
     #[Route('/HR/schedule_new', name: 'app_schedule_add')]
-    public function addSchedule(EntityManagerInterface $entityManager, Request $request): Response
+    public function addSchedule(Request $request): Response
     {
         //creamos el formulario que apunta a la clase ScheduleType
         $form = $this->createForm(ScheduleType::class);
@@ -47,8 +46,8 @@ class ScheduleController extends AbstractController
             
             $schedule->setModDate(date('Y-m-d H:i:s'));
             
-            $entityManager->persist($schedule);
-            $entityManager->flush();
+            $this->entityManager->persist($schedule);
+            $this->entityManager->flush();
             $this->addFlash('success', 'Se ha guardado correctamente ');
             return $this->redirectToRoute('app_schedule');
         }
@@ -58,7 +57,7 @@ class ScheduleController extends AbstractController
     }
 
     #[Route('/HR/schedule/delete/{id}', name: 'app_schedule_delete', methods: ['POST'])]
-    public function delete(EntityManagerInterface $entityManager, ScheduleRepository $scheduleRepository, Request $request, CsrfTokenManagerInterface $csrfTokenManager, int $id): RedirectResponse
+    public function delete(ScheduleRepository $scheduleRepository, int $id, Request $request): RedirectResponse
     {
        
         //verificar el  token CSRF
@@ -76,8 +75,8 @@ class ScheduleController extends AbstractController
             return $this->redirectToRoute('app_schedule');
         }
         //eliminar el horario con la funcion predeterminada de doctrine preparada
-        $entityManager->remove($schedule);
-        $entityManager->flush();
+        $this->entityManager->remove($schedule);
+        $this->entityManager->flush();
 
         $this->addFlash('success', 'Se ha eliminado correctamente');
         return $this->redirectToRoute('app_schedule');
@@ -111,7 +110,5 @@ class ScheduleController extends AbstractController
             'schedule' => $schedule
         ]);
     }
-
-
 
 }

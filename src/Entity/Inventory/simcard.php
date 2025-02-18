@@ -1,27 +1,25 @@
 <?php
 
-namespace App\Entity\Inventario;
+namespace App\Entity\Inventory;
 
-use App\Repository\Inventario\deviceRepository;
+use App\Entity\State;
+use App\Repository\Inventory\simcardRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: deviceRepository::class)]
-class device
+#[ORM\Entity(repositoryClass: simcardRepository::class)]
+class simcard
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 50)]
-    private ?string $brand = null;
+    #[ORM\Column(length: 30)]
+    private ?string $name_operator = null;
 
-    #[ORM\Column(length: 50)]
-    private ?string $model = null;
-
-    #[ORM\Column(nullable: true)]
-    private ?bool $changer = null;
+    #[ORM\Column(length: 90, nullable: true)]
+    private ?string $plan = null;
 
     #[ORM\Column(length: 60)]
     private ?string $create_by = null;
@@ -29,49 +27,41 @@ class device
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $creation_date = null;
 
+    #[ORM\Column(length: 50, nullable: true)]
+    private ?string $modified_by = null;
+
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $modified_date = null;
 
-    #[ORM\Column(length: 50)]
-    private ?string $modified_by = null;
+    #[ORM\ManyToOne]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?State $State_simcard = null;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getBrand(): ?string
+    public function getNameOperator(): ?string
     {
-        return $this->brand;
+        return $this->name_operator;
     }
 
-    public function setBrand(string $brand): static
+    public function setNameOperator(string $name_operator): static
     {
-        $this->brand = $brand;
+        $this->name_operator = $name_operator;
 
         return $this;
     }
 
-    public function getModel(): ?string
+    public function getPlan(): ?string
     {
-        return $this->model;
+        return $this->plan;
     }
 
-    public function setModel(string $model): static
+    public function setPlan(?string $plan): static
     {
-        $this->model = $model;
-
-        return $this;
-    }
-
-    public function isChanger(): ?bool
-    {
-        return $this->changer;
-    }
-
-    public function setChanger(?bool $changer): static
-    {
-        $this->changer = $changer;
+        $this->plan = $plan;
 
         return $this;
     }
@@ -100,6 +90,18 @@ class device
         return $this;
     }
 
+    public function getModifiedBy(): ?string
+    {
+        return $this->modified_by;
+    }
+
+    public function setModifiedBy(?string $modified_by): static
+    {
+        $this->modified_by = $modified_by;
+
+        return $this;
+    }
+
     public function getModifiedDate(): ?\DateTimeInterface
     {
         return $this->modified_date;
@@ -112,14 +114,14 @@ class device
         return $this;
     }
 
-    public function getModifiedBy(): ?string
+    public function getStateSimcard(): ?State
     {
-        return $this->modified_by;
+        return $this->State_simcard;
     }
 
-    public function setModifiedBy(string $modified_by): static
+    public function setStateSimcard(?State $State_simcard): static
     {
-        $this->modified_by = $modified_by;
+        $this->State_simcard = $State_simcard;
 
         return $this;
     }
